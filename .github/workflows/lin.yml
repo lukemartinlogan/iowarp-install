@@ -1,0 +1,22 @@
+name: lin
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: install
+        run:  |
+          sudo apt-get update
+          sudo apt-get install libboost-dev libboost-fiber-dev libboost-regex-dev  libelf-dev openmpi-bin openmpi-common mpi-default-dev
+      - name: test
+        shell: bash
+        run: |
+          ./install.sh
+
+

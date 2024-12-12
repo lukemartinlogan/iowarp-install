@@ -1,0 +1,15 @@
+{
+  "name": "hermes-shm",
+  "version": "1.1.0",
+  "homepage": "https://grc.iit.edu/hermes-shm/",
+  "description": "This library contains a variety of data structures and synchronization primitives which are compatible with shared memory.",
+  "license": "BSD-3-Clause",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+      "catch2",
+      "cereal"
+  ]
+}
