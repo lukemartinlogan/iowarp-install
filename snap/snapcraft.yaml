@@ -18,4 +18,4 @@ parts:
   hermes:
     # See 'snapcraft plugins'
     plugin: dump
-    source: .
+    source: ./vcpkg/installed/x64-linux/
