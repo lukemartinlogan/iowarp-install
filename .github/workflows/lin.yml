@@ -14,7 +14,15 @@ jobs:
         run:  |
           sudo apt-get update
           sudo apt-get install libboost-dev libboost-fiber-dev libboost-regex-dev  libelf-dev openmpi-bin openmpi-common mpi-default-dev
+      - name: snapcraft
+        uses: samuelmeuli/action-snapcraft@v3
       - name: test
         shell: bash
         run: |
           ./install.sh
+          sudo snapcraft
+      - name: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: iowarp_0.0.0_amd64.snap.zip
+          path: ./iowarp_0.0.0_amd64.snap
