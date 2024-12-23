@@ -45,4 +45,4 @@ jobs:
       - name: miniconda
         uses: conda-incubator/setup-miniconda@v3
       - name: build-conda
-        uses: cascode-labs/build-conda-action/action.yml@v0
+        uses: cascode-labs/build-conda-action@v0
