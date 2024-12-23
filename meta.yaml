@@ -10,11 +10,10 @@ requirements:
   build:
     - python
     - setuptools
-
   run:
     - python
 
 about:
   home: https://grc.iit.edu/research/projects/iowarp/
   license: BSD
-  summary: IOWarp Contenet Assimilation Engine  
+  summary: IOWarp Contenet Assimilation Engine
