@@ -1,0 +1,29 @@
+name: conda
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        shell: bash -l {0}    
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: install
+        run:  |
+          sudo apt-get update
+          sudo apt-get install \
+          libboost-dev libboost-fiber-dev libboost-regex-dev \
+          libelf-dev openmpi-bin openmpi-common mpi-default-dev
+      - name: miniconda
+        uses: conda-incubator/setup-miniconda@v3
+      - name: build-conda
+        run: |
+          conda install conda-build
+          conda-build .
+
