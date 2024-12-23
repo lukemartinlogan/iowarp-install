@@ -1,0 +1,20 @@
+package:
+  name: iowarp
+  version: 0.0.0
+
+source:
+  git_rev: 8af12d849828437a7f9fa6cb906de963f6cfa5bc
+  git_url: https://github.com/iowarp/iowarp-install
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+about:
+  home: https://grc.iit.edu/research/projects/iowarp/
+  license: BSD
+  summary: IOWarp Contenet Assimilation Engine  
