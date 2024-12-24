@@ -6,5 +6,7 @@ cp -r ./ports/* ./vcpkg/ports/
 cd vcpkg
 ./bootstrap-vcpkg.sh
 ./vcpkg install hermes
+cd ..
+pip install .
 
 
