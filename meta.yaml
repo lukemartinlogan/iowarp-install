@@ -3,8 +3,8 @@ package:
   version: 0.0.0
 
 source:
-  git_rev: 77eda89a36fc7cf682b24b399c436dbed36ce77b
   git_url: https://github.com/iowarp/iowarp-install
+  git_depth: 1  
 
 requirements:
   build:

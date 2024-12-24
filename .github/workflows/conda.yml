@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-24.04
     defaults:
       run:
-        shell: bash -l {0}    
+        shell: bash -l {0}
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -24,6 +24,6 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
       - name: build-conda
         run: |
-          conda install conda-build
-          conda-build --no-verify .
-
+          conda install -y conda-build
+          conda install -y conda-verify
+          conda-build .
