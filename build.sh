@@ -7,6 +7,7 @@ cd vcpkg
 ./bootstrap-vcpkg.sh
 ./vcpkg install hermes
 cd ..
+cp ./vcpkg/installed/x64-linux/bin/* "${PREFIX}/bin"
 pip install .
 
 
