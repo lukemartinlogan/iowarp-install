@@ -15,6 +15,7 @@ requirements:
 
 files:
   - README.md
+  - ./vcpkg/installed/x64-linux/
   
 test:
   requires:
@@ -25,4 +26,4 @@ test:
 about:
   home: https://grc.iit.edu/research/projects/iowarp/
   license: BSD
-  summary: IOWarp Contenet Assimilation Engine
+  summary: IOWarp Conda Package
