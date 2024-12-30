@@ -1,5 +1,11 @@
 # Install IOWarp
 
+## conda
+
+1. Install Miniconda.
+2. `$ source ~/miniconda3/bin/activate`
+3. `$ conda install --offline iowarp-0.0.0-py312_0.tar.bz2`
+
 ## snap
 
 1. Install `snapd`.
@@ -16,4 +22,4 @@
 
 | Test    | Status |
 | --------| ------ |
-| Ubuntu 24.04 |[![lin](https://github.com/iowarp/iowarp-install/actions/workflows/lin.yml/badge.svg)](https://github.com/iowarp/iowarp-install/actions/workflows/lin.yml)|
+| Ubuntu 24.04 |[![lin](https://github.com/iowarp/iowarp-install/actions/workflows/lin.yml/badge.svg)](https://github.com/iowarp/iowarp-install/actions/workflows/lin.yml) [![conda](https://github.com/iowarp/iowarp-install/actions/workflows/lin-cnd.yml/badge.svg)](https://github.com/iowarp/iowarp-install/actions/workflows/lin-cnd.yml)|
