@@ -4,7 +4,7 @@
 
 1. Install Miniconda.
 2. `$ source ~/miniconda3/bin/activate`
-3. `$ conda install --offline iowarp-0.0.0-py312_0.tar.bz2`
+3. `$ conda install hyoklee::iowarp`
 
 ## snap
 
