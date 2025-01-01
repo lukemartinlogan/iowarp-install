@@ -26,10 +26,10 @@ jobs:
         run: |
           conda install -y conda-build
           conda install -y conda-verify
+          conda install -y anaconda-client
           conda-build .
       - name: upload
         uses: actions/upload-artifact@v4
         with:
           name: iowarp-0.0.0-py312_0.tar.bz2
           path: /usr/share/miniconda/envs/test/conda-bld/linux-64/iowarp-0.0.0-py312_0.tar.bz2
-
