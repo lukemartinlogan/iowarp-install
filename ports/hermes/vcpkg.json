@@ -17,9 +17,9 @@
 
   "default-features": [],
   "features": {
-    "example-feature": {
-      "description": "",
-      "dependencies": []
+    "hdf5": {
+      "description": "Build the Hermes HDF5 Virtual File Driver",
+      "dependencies": ["hdf5"]
     }
   }
 }
