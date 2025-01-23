@@ -11,7 +11,7 @@
 	},
 	"catch2"
     ],
-    "default-features": ["bench","boost","cereal","coverage","doxygen","elf","mpi","openmp","pthread","shared","test","thallium"],
+    "default-features": ["bench","boost","cereal","doxygen","elf","mpi","openmp","pthread","shared","test","thallium"],
     "features": {
         "bench": {
 	    "description": "Build benchmarks"
