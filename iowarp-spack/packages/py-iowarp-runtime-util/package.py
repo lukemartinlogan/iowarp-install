@@ -6,7 +6,7 @@
 from spack import *
 
 
-class PyPpiIowarpRuntimeUtil(PythonPackage):
+class PyIowarpRuntimeUtil(PythonPackage):
     homepage = "grc.iit.edu/docs/jarvis/ppi-jarvis-cd/index"
     git      = "https://github.com/iowarp/iowarp-runtime-util.git"
 
