@@ -1,4 +1,4 @@
-from spack import *
+from spack.package import *
 
 class PpiChiNettest(CMakePackage):
     homepage = "https://github.com/iowarp/ppi-chi-nettest.git"

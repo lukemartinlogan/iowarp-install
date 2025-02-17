@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
+from spack.package import *
 
 
 class PyPpiJarvisCd(PythonPackage):
@@ -23,5 +23,5 @@ class PyPpiJarvisCd(PythonPackage):
     depends_on('py-ppi-jarvis-util', type=('build', 'run'))
     depends_on('ppi-chi-nettest', type=('build', 'run'))
     depends_on('py-ppi-jarvis-util@priv', type=('build', 'run'), when='@priv')
-    depends_on('py-scspkg', type=('build', 'run'))
+    depends_on('py-ppi-scspkg', type=('build', 'run'))
 

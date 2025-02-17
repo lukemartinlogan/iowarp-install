@@ -1,4 +1,4 @@
-from spack import *
+from spack.package import *
 
 class IowarpRuntime(CMakePackage):
     homepage = "http://www.cs.iit.edu/~scs/assets/projects/Hermes/Hermes.html"
