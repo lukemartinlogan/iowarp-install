@@ -1,8 +1,8 @@
 from spack import *
 
 class PpiChiNettest(CMakePackage):
-    homepage = "https://github.com/lukemartinlogan/ppi-chi-nettest.git"
-    git = "https://github.com/lukemartinlogan/chi-nettest.git"
+    homepage = "https://github.com/iowarp/ppi-chi-nettest.git"
+    git = "https://github.com/iowarp/ppi-chi-nettest.git"
     version('main', branch='main', submodules=True)
     
     # Required deps
