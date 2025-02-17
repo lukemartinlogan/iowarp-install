@@ -1,7 +1,7 @@
 {
-    "name": "hermes-shm",
+    "name": "cte-hermes-shm",
     "version": "1.1.0",
-    "homepage": "https://grc.iit.edu/hermes-shm/",
+    "homepage": "https://grc.iit.edu/cte-hermes-shm/",
     "description": "This library contains a variety of data structures and synchronization primitives which are compatible with shared memory.",
     "license": "BSD-3-Clause",
     "dependencies": [
