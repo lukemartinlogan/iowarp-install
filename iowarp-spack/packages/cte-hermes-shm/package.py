@@ -5,9 +5,9 @@ class CteHermesShm(CMakePackage):
     git = "https://github.com/iowarp/cte-hermes-shm.git"
     
     # Branch versions
-    version('main', branch='master', preferred=True)
+    version('main', branch='main', preferred=True)
     version('dev', branch='dev')
-    version('priv', branch='master', git='https://github.com/lukemartinlogan/cte-hermes-shm.git')
+    version('priv', branch='main', git='https://github.com/lukemartinlogan/cte-hermes-shm.git')
     
     # Main variants
     variant('debug', default=False, description='Build shared libraries')

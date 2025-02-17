@@ -13,8 +13,8 @@ class PyPpiJarvisUtil(PythonPackage):
     homepage = "grc.iit.edu/docs/jarvis/jarvis-util/index"
     git      = "https://github.com/iowarp/ppi-jarvis-util.git"
 
-    version('main', branch='master', preferred=True)
-    version('priv', branch='master', git='https://github.com/lukemartinlogan/jarvis-util.git')
+    version('main', branch='main', preferred=True)
+    version('priv', branch='main', git='https://github.com/lukemartinlogan/jarvis-util.git')
 
     depends_on('python@3:', type=('build', 'run'))
     depends_on('py-setuptools', type=('build', 'run'))

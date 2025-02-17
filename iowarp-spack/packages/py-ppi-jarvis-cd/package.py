@@ -12,8 +12,8 @@ class PyPpiJarvisCd(PythonPackage):
 
     import_modules = ['typing']
 
-    version('main', branch='master', preferred=True)
-    version('priv', branch='master', git='https://github.com/lukemartinlogan/jarvis-cd.git')
+    version('main', branch='main', preferred=True)
+    version('priv', branch='main', git='https://github.com/lukemartinlogan/jarvis-cd.git')
 
     depends_on('python@3:', type=('build', 'run'))
     depends_on('py-setuptools', type=('build', 'run'))
