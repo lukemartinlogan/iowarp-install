@@ -24,6 +24,7 @@ class CteHermesShm(CMakePackage):
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
 
     # Required deps
+    depends_on('cmake@3.25:')
     depends_on('catch2@3.0.1')
     depends_on('yaml-cpp')
     depends_on('doxygen')
