@@ -9,7 +9,7 @@
       "name": "vcpkg-cmake",
       "host": true
     },
-      "hermes-shm",
+      "cte-hermes-shm",
       "margo",
       "thallium",
       "yaml-cpp"
