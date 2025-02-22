@@ -9,8 +9,7 @@
 ## snap
 
 1. Install `snapd`.
-2. Download [iowarp_0.0.0_amd64.snap](https://github.com/iowarp/iowarp-install/releases/download/v0.0.0/iowarp_0.0.0_amd64.snap).
-3. `$ snap install iowarp_0.0.0_amd64.snap --devmode`
+2. Run `sudo snap install iowarp`.
 
 ## vcpkg
 
