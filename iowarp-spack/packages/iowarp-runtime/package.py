@@ -49,3 +49,7 @@ class IowarpRuntime(CMakePackage):
         if '+nocompile' in self.spec or '+depsonly' in self.spec:
             args.append('-DCHIMAERA_NO_COMPILE=ON')
         return args
+
+    def setup_run_environment(self, env):
+        # This is for the interceptors
+        env.prepend_path('LD_LIBRARY_PATH', self.prefix.lib)
