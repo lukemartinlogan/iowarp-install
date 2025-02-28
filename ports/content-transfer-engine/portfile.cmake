@@ -2,11 +2,8 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO iowarp/content-transfer-engine
     REF "3727916a319146c88e7a0ab23099075c5d2ba647"
-    SHA512 39fd0cff7d866f0d232d6aa889fa1548a9c21a89c04bc198ac0c2010c9ef582efb45f584ce4f21f56637e2f5a357c0f2b3590657ce2ac7e3875fcaf2f0b2bd7f
+    SHA512 08f1f2e04f674d15c787b9219691da7dc5f80b84524f86fb257fbffa0d3d55e5cc1d10dc19088de68a89f5404a8a390231ab1bd1f63820d7a93e5126b2612c79
     HEAD_REF main
-    PATCHES
-    hrun.patch
-    CMakeLists.txt.patch
 )
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS

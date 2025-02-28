@@ -1,5 +1,5 @@
 {
-    "name": "cte-hermes-shm",
+    "name": "hermes-shm",
     "version": "1.1.0",
     "homepage": "https://grc.iit.edu/cte-hermes-shm/",
     "description": "This library contains a variety of data structures and synchronization primitives which are compatible with shared memory.",
