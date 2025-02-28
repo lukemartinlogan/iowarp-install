@@ -2,7 +2,7 @@ vcpkg_from_github(
         OUT_SOURCE_PATH SOURCE_PATH
         REPO iowarp/cte-hermes-shm
         REF "98c368e98d948e4f6e2fc74e48ddb7161c505eed"
-        SHA512 83b9253b2172587ac60a75f1501417d42bc0fe7045291a66aad1bb196eb7ff26d67cdd8fafce8fbeb412decd52d82a9df7fefed227a5eb8bcf212c058520bf60
+        SHA512 4fda4da6ca391425f9160299e029d29087fd068029d0f47cd0585bb9d9d50b0ef2e0832f02019dc1c2ec93595566f343ddfc5a5f91efa89c9eae965d541483b9
         HEAD_REF main
 )
 
