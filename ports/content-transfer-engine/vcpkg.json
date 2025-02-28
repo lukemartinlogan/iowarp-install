@@ -1,7 +1,7 @@
 {
-  "name": "hermes",
+  "name": "content-transfer-engine",
   "version": "1.2.1",
-  "homepage": "https://grc.iit.edu/research/projects/hermes",
+  "homepage": "https://github.com/iowarp/content-transfer-engine",
   "description": "Hermes is a heterogeneous-aware, multi-tiered, dynamic, and distributed I/O buffering system that aims to significantly accelerate I/O performance.",
   "license": "BSD-3-Clause",
   "dependencies": [
@@ -9,7 +9,7 @@
       "name": "vcpkg-cmake",
       "host": true
     },
-      "hermes-shm",
+      "cte-hermes-shm",
       "margo",
       "thallium",
       "yaml-cpp"
