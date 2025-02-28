@@ -11,6 +11,12 @@
 1. Install `snapd`.
 2. Run `sudo snap install iowarp`.
 
+## spack
+
+1. Install `spack`.
+2. `$ spack repo add iowarp-spack`
+3. `$ spack install iowarp`
+
 ## vcpkg
 
 1. Install `git`.
