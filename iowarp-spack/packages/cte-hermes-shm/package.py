@@ -36,7 +36,7 @@ class CteHermesShm(CMakePackage):
 
     # Main dependencies
     depends_on('libelf', when='+elf')
-    depends_on('mochi-thallium+cereal@0.10.1', when='+mochi')
+    depends_on('mochi-thallium+cereal', when='+mochi')
     depends_on('argobots@1.1+affinity', when='+mochi')
     depends_on('cereal', when='+cereal')
     depends_on('boost@1.7: +context +fiber +coroutine +regex +system +filesystem +serialization +pic +math',
