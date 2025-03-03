@@ -1,4 +1,4 @@
-name: spack iowarp
+name: spack
 
 on:
   workflow_dispatch:
