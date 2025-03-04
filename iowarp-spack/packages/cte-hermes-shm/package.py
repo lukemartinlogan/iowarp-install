@@ -42,7 +42,7 @@ class CteHermesShm(CMakePackage):
     depends_on('boost@1.7: +context +fiber +coroutine +regex +system +filesystem +serialization +pic +math',
                when='+boost')
     depends_on('mpi', when='+mpiio')
-    depends_on('hdf5@1.14.0', when='+vfd')
+    depends_on('hdf5', when='+vfd')
     depends_on('libzmq', when='+zmq')
     depends_on('adios2', when='+adios')
 
