@@ -1,9 +1,9 @@
-name: spack
+name: spack vfd
 
 on:
   workflow_dispatch:
   push:
-    branches: [ main- ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -21,5 +21,5 @@ jobs:
         . ./spack/share/spack/setup-env.sh
         spack external find
         spack repo add iowarp-spack
-        spack install iowarp
-        spack load iowarp
+        spack install iowarp+vfd
+        spack load iowarp+vfd
