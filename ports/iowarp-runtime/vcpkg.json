@@ -9,7 +9,8 @@
 	    "name": "vcpkg-cmake",
 	    "host": true
 	},
-	"cte-hermes-shm"
+	"cte-hermes-shm",
+	"pybind11"        
     ],
     "default-features": ["mpi","openmp","python","shared","test"],
     "features": {
