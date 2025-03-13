@@ -10,7 +10,7 @@ class PpiChiNettest(CMakePackage):
     depends_on('catch2@3.0.1')
     depends_on('yaml-cpp')
     depends_on('doxygen')
-    depends_on('mochi-thallium+cereal@0.10.1')
+    depends_on('mochi-thallium+cereal')
     depends_on('argobots@1.1+affinity')
     depends_on('cereal')
 

@@ -5,6 +5,7 @@ ls
 cp -r ./ports/* ./vcpkg/ports/
 cd vcpkg
 ./bootstrap-vcpkg.sh
-./vcpkg install hermes
+./vcpkg install content-transfer-engine
+
 
 

@@ -1,0 +1,37 @@
+vcpkg_from_github(
+        OUT_SOURCE_PATH SOURCE_PATH
+        REPO iowarp/iowarp-runtime
+        REF "386723f18f0f05f1515a5eb55748fcf549230b2c"
+        SHA512 f02530a2758296756acc957e7209897472ba31701a6a92b7b638c5a83f8b4ed6c6807804a783935284a8ea400c410aa946216fe40a14b810c0c39c9179d20455
+        HEAD_REF main
+)
+
+vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
+    FEATURES
+    coverage CHIMAERA_ENABLE_COVERAGE
+    cuda CHIMAERA_ENABLE_CUDA
+    dotenv CHIMAERA_ENABLE_DOTENV
+    doxygen CHIMAERA_ENABLE_DOXYGEN
+    jemalloc CHIMAERA_ENABLE_JEMALLOC
+    mimalloc CHIMAERA_ENABLE_MIMALLOC
+    mpi BUILD_MPI_TESTS
+    no CHIMAERA_NO_COMPILE
+    openmp BUILD_OpenMP_TESTS
+    python CHIMAERA_ENABLE_PYTHON
+    remote CHIMAERA_REMOTE_DEBUG
+    rocm CHIMAERA_ENABLE_ROCM
+    shared BUILD_SHARED_LIBS
+    task CHIMAERA_TASK_DEBUG    
+    test BUILD_TESTS
+    zmq BUILD_ZeroMQ_TESTS
+)
+
+vcpkg_cmake_configure(
+    SOURCE_PATH "${SOURCE_PATH}"
+    OPTIONS
+    ${FEATURE_OPTIONS}
+)
+
+vcpkg_cmake_install()
+
+vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")
