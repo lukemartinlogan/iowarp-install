@@ -23,6 +23,7 @@ class Iowarp(CMakePackage):
     variant('encrypt', default=False, description='Include encryption libraries')
     variant('compress', default=False, description='Include compression libraries')
     variant('jarvis', default=True, description='Install jarvis deployment tool')
+    variant('python', default=False, description='Install python bindings')
     variant('nocompile', default=False, description='Do not compile the library (used for dev purposes)')
     variant('depsonly', default=False, description='Only install dependencies')
 
@@ -70,3 +71,5 @@ class Iowarp(CMakePackage):
     def setup_run_environment(self, env):
         # This is for the interceptors
         env.prepend_path('LD_LIBRARY_PATH', self.prefix.lib)
+        env.prepend_path('PYTHONPATH', self.prefix.lib)
+        
