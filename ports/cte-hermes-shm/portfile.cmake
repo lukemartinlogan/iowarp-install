@@ -9,17 +9,16 @@ vcpkg_from_github(
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     FEATURES
     bench BUILD_HSHM_BENCHMARKS
-    boost BUILD_Boost_TESTS
-    cereal HERMES_ENABLE_CEREAL
-    coverage HERMES_ENABLE_COVERAGE
-    doxygen HERMES_ENABLE_DOXYGEN
-    elf HERMES_USE_ELF
-    mpi BUILD_MPI_TESTS
-    openmp BUILD_OpenMP_TESTS
-    pthread HERMES_PTHREADS_ENABLED
+    cereal HSHM_ENABLE_CEREAL
+    coverage HSHM_ENABLE_COVERAGE
+    doxygen HSHM_ENABLE_DOXYGEN
+    elf HSHM_USE_ELF
+    mpi HSHM_ENABLE_MPI
+    openmp HSHM_ENABLE_OPENMP
+    pthread HSHM_ENABLE_PTHREADS
     shared BUILD_SHARED_LIBS
     test BUILD_HSHM_TESTS
-    thallium HERMES_RPC_THALLIUM
+    thallium HSHM_RPC_THALLIUM
 )
 
 vcpkg_cmake_configure(
