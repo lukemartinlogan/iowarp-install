@@ -9,7 +9,7 @@
 	    "name": "vcpkg-cmake",
 	    "host": true
 	},
-	"catch2", "cereal", "pkgconf", "yaml-cpp" 
+	"catch2", "cereal", "pkgconf", "yaml-cpp"
     ],
     "default-features": ["bench","boost","cereal","doxygen","elf","mpi","openmp","pthread","shared","test","thallium"],
     "features": {

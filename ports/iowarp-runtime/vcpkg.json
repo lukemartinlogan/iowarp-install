@@ -10,7 +10,7 @@
 	    "host": true
 	},
 	"cte-hermes-shm",
-	"pybind11"        
+	"pybind11"
     ],
     "default-features": ["mpi","openmp","python","shared","test"],
     "features": {
@@ -19,10 +19,10 @@
 	},
 	"cuda": {
 	    "description": "Enable CUDA support"
-	},	
+	},
 	"dotenv": {
 	    "description": "Use cmake dotenv"
-	},	
+	},
 	"doxygen": {
 	    "description": "Check how well the code is documented"
 	},
@@ -31,14 +31,14 @@
 	},
 	"mimalloc": {
 	    "description": "Use mimalloc as the allocator"
-	},	
+	},
 	"mpi": {
 	    "description": "Build MPI tests",
 	    "dependencies": ["mpi"]
 	},
 	"no": {
 	    "description": "Don't compile the code"
-	},	
+	},
 	"openmp": {
 	    "description": "Build OpenMP tests"
 	},
@@ -50,18 +50,18 @@
 	},
 	"rocm": {
 	    "description": "Enable ROCm support"
-	},	
+	},
 	"shared": {
 	    "description": "Build shared libraries"
 	},
 	"task": {
 	    "description": "Debug tasks"
-	},	
+	},
 	"test": {
 	    "description": "Build tests"
 	},
 	"zmq": {
 	    "description": "Build tests which depend on ZeroMQ"
-	}	
+	}
     }
 }
