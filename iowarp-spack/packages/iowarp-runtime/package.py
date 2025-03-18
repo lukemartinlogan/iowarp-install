@@ -39,6 +39,7 @@ class IowarpRuntime(CMakePackage):
     depends_on('py-ppi-jarvis-cd', when='+jarvis', type=('build'))
     depends_on('py-iowarp-runtime-util')
     depends_on('mpi')
+    depends_on('iowarp-base')
 
     def cmake_args(self):
         args = []

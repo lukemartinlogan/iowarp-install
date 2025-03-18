@@ -21,4 +21,4 @@ class PyPpiJarvisUtil(PythonPackage):
     depends_on('py-pip', type=('build', 'run'))
     depends_on('py-pyyaml', type=('build', 'run'))
     depends_on('py-tabulate', type=('build', 'run'))
-    
+    depends_on('iowarp-base')
