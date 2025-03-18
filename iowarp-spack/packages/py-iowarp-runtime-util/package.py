@@ -19,6 +19,6 @@ class PyIowarpRuntimeUtil(PythonPackage):
     depends_on('py-setuptools', type=('build', 'run'))
     depends_on('py-pip', type=('build', 'run'))
     depends_on('py-pyyaml', type=('build', 'run'))
-    depends_on('py-ppi-jarvis-util', type=('build', 'run'))
-    depends_on('py-ppi-jarvis-util@priv', type=('build', 'run'), when='@priv')
+    depends_on('py-ppi-jarvis-util', type=('build'))
+    depends_on('py-ppi-jarvis-util@priv', type=('build'), when='@priv')
 

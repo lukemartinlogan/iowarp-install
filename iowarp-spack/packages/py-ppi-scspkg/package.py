@@ -18,5 +18,5 @@ class PyPpiScspkg(PythonPackage):
     depends_on('python@3:', type=('build', 'run'))
     depends_on('py-setuptools', type=('build', 'run'))
     depends_on('py-pip', type=('build', 'run'))
-    depends_on('py-ppi-jarvis-util', type=('build', 'run'))
+    depends_on('py-ppi-jarvis-util', type=('build'))
     
