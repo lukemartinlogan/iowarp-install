@@ -1,9 +1,10 @@
 from spack.package import *
 
 
-class Iowarp(CMakePackage):
+class Iowarp(Package):
     homepage = "https://grc.iit.edu/docs/hermes/main-scenario"
     git = "https://github.com/iowarp/content-transfer-engine.git"
+    phases = []
 
     version(
         "main",
@@ -30,7 +31,6 @@ class Iowarp(CMakePackage):
             description="Include encryption libraries")
     variant("compress", default=False,
             description="Include compression libraries")
-    variant("jarvis", default=True, description="Install jarvis deployment tool")
     variant("python", default=False, description="Install python bindings")
     variant(
         "nocompile",
@@ -39,51 +39,25 @@ class Iowarp(CMakePackage):
     )
     variant("depsonly", default=False, description="Only install dependencies")
 
-    depends_on("iowarp-runtime")
-    depends_on("iowarp-runtime -nocompile", when="~nocompile")
-    depends_on("iowarp-runtime +nocompile", when="+nocompile")
-    depends_on("iowarp-runtime@main", when="@main")
-    depends_on("iowarp-runtime@priv", when="@priv")
-    depends_on("iowarp-runtime@dev", when="@dev")
+    depends_on("iowarp-cte")
+    depends_on("iowarp-cte -nocompile", when="~nocompile")
+    depends_on("iowarp-cte +nocompile", when="+nocompile")
+    depends_on("iowarp-cte@main", when="@main")
+    depends_on("iowarp-cte@priv", when="@priv")
+    depends_on("iowarp-cte@dev", when="@dev")
+    
+    depends_on('iowarp-cte+debug', when='+debug')
+    depends_on('iowarp-cte+ares', when='+ares')
+    depends_on('iowarp-cte+adios', when='+adios')
+    depends_on('iowarp-cte+encrypt', when='+encrypt')
+    depends_on('iowarp-cte+compress', when='+compress')
+    depends_on('iowarp-cte+python', when='+python')
 
-    depends_on('cte-hermes-shm+elf')
-    depends_on('cte-hermes-shm+debug', when='+debug')
-    depends_on('cte-hermes-shm+mpiio')
-    depends_on('cte-hermes-shm+ares', when='+ares')
-    depends_on('cte-hermes-shm+vfd', when='+vfd')
-    depends_on('cte-hermes-shm+adios', when='+adios')
-    depends_on('cte-hermes-shm+encrypt', when='+encrypt')
-    depends_on('cte-hermes-shm+compress', when='+compress')
-    depends_on('py-ppi-jarvis-cd', when='+jarvis', type=('build'))
-    depends_on('iowarp-base')
+    depends_on('iowarp-cte+posix', when='+posix')
+    depends_on('iowarp-cte+mpiio', when='+mpiio')
+    depends_on('iowarp-cte+stdio', when='+stdio')
+    depends_on('iowarp-cte+vfd', when='+vfd')
 
-    def cmake_args(self):
-        args = []
-        if "+debug" in self.spec:
-            args.append("-DCMAKE_BUILD_TYPE=Debug")
-        else:
-            args.append("-DCMAKE_BUILD_TYPE=Release")
-        if "+posix" in self.spec:
-            args.append("-DHERMES_ENABLE_POSIX_ADAPTER=ON")
-        if "+mpiio" in self.spec:
-            args.append("-DHERMES_ENABLE_MPIIO_ADAPTER=ON")
-            if "openmpi" in self.spec:
-                args.append("-DHERMES_OPENMPI=ON")
-            elif "mpich" in self.spec:
-                args.append("-DHERMES_MPICH=ON")
-        if "+stdio" in self.spec:
-            args.append("-HERMES_ENABLE_STDIO_ADAPTER=ON")
-        if "+vfd" in self.spec:
-            args.append("-HERMES_ENABLE_VFD=ON")
-        if "+compress" in self.spec:
-            args.append(self.define("HERMES_ENABLE_COMPRESS", "ON"))
-        if "+encrypt" in self.spec:
-            args.append(self.define("HERMES_ENABLE_ENCRYPT", "ON"))
-        if "+nocompile" in self.spec or "+depsonly" in self.spec:
-            args.append(self.define("HERMES_NO_COMPILE", "ON"))
-        return args
-
-    def setup_run_environment(self, env):
-        # This is for the interceptors
-        env.prepend_path("LD_LIBRARY_PATH", self.prefix.lib)
-        env.prepend_path("PYTHONPATH", self.prefix.lib)
+    depends_on("py-ppi-jarvis-cd", type=('build', 'run'))
+    depends_on('py-ppi-scspkg', type=('build', 'run'))
+    depends_on("iowarp-base")

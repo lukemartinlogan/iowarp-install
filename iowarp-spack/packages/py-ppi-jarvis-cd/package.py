@@ -23,6 +23,6 @@ class PyPpiJarvisCd(PythonPackage):
     depends_on('py-ppi-jarvis-util', type=('build', 'run'))
     depends_on('ppi-chi-nettest', type=('build', 'run'))
     depends_on('py-ppi-jarvis-util@priv', type=('build', 'run'), when='@priv')
-    depends_on('py-ppi-scspkg', type=('build'))
+    depends_on('py-ppi-scspkg', type=('build', 'run'))
     depends_on('iowarp-base')
 
