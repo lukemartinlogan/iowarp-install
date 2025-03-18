@@ -18,7 +18,7 @@ jobs:
           sudo apt-get install \
           autoconf automake autoconf-archive doxygen \
           libboost-dev libboost-fiber-dev libboost-regex-dev \
-          libelf-dev openmpi-bin openmpi-common mpi-default-dev
+          libelf-dev openmpi-bin openmpi-common mpi-default-dev python3-dev 
       - name: network
         run: |
           sudo iptables -I DOCKER-USER -j ACCEPT
