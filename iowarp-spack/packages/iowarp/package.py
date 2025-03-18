@@ -42,7 +42,7 @@ class Iowarp(CMakePackage):
     depends_on('cte-hermes-shm+adios', when='+adios')
     depends_on('cte-hermes-shm+encrypt', when='+encrypt')
     depends_on('cte-hermes-shm+compress', when='+compress')
-    depends_on('py-ppi-jarvis-cd', when='+jarvis')
+    depends_on('py-ppi-jarvis-cd', when='+jarvis', type=('build'))
 
     def cmake_args(self):
         args = []

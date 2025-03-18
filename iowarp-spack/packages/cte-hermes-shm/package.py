@@ -28,6 +28,7 @@ class CteHermesShm(CMakePackage):
     depends_on('catch2@3.0.1')
     depends_on('yaml-cpp')
     depends_on('doxygen')
+    depends_on('iowarp-base')
 
     # Machine variants
     variant('ares', default=False, description='Build in ares')
@@ -47,7 +48,7 @@ class CteHermesShm(CMakePackage):
     depends_on('adios2', when='+adios')
 
     # Python dependencies
-    depends_on('py-ppi-jarvis-cd', when='+jarvis')
+    depends_on('py-ppi-jarvis-cd', when='+jarvis', type=('build'))
     depends_on('py-pybind11', when='+python')
     depends_on('python', when='+python')
     depends_on('py-pip', when='+python')

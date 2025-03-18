@@ -20,7 +20,7 @@ class PyPpiJarvisCd(PythonPackage):
     depends_on('py-pip', type=('build', 'run'))
     depends_on('py-pandas', type=('build', 'run'))
     depends_on('py-pyyaml', type=('build', 'run'))
-    depends_on('py-ppi-jarvis-util', type=('build'))
+    depends_on('py-ppi-jarvis-util', type=('build', 'run'))
     depends_on('ppi-chi-nettest', type=('build', 'run'))
     depends_on('py-ppi-jarvis-util@priv', type=('build', 'run'), when='@priv')
     depends_on('py-ppi-scspkg', type=('build'))

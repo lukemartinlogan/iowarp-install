@@ -13,6 +13,7 @@ class PpiChiNettest(CMakePackage):
     depends_on('mochi-thallium+cereal')
     depends_on('argobots@1.1+affinity')
     depends_on('cereal')
+    depends_on('iowarp-base')
 
     def cmake_args(self):
         args = []
