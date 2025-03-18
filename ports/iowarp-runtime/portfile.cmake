@@ -1,9 +1,11 @@
 vcpkg_from_github(
         OUT_SOURCE_PATH SOURCE_PATH
         REPO iowarp/iowarp-runtime
-        REF "686ad941cb10a3a508dff01f19fd0c954ad38667"
-        SHA512 ba9eadb91fcaf48214a456addc91e5c247a1fe8804f52134106367b94a34edf3be08d81332c49648366e7a41677a3e531a333fbb29e9b198347054ca4f2c9100
+        REF "fb47b47339931024bc4cfd4a4b6942b18d555aaa"
+        SHA512 e26a0c71893a284d3a7ca67d5ee08fcabb08da70bd68f9c961a7572ffcb0a9c96f327588a2935bed23b0e96965eea632f7d419cfc6410c2b95d2ed886904417f
         HEAD_REF main
+        PATCHES
+        cmake.patch	
 )
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
@@ -34,4 +36,4 @@ vcpkg_cmake_configure(
 
 vcpkg_cmake_install()
 
-vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")
+# vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")
