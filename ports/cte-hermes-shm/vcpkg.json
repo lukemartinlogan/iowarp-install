@@ -11,7 +11,7 @@
 	},
 	"catch2", "cereal", "pkgconf", "yaml-cpp" 
     ],
-    "default-features": ["bench", "cereal", "doxygen", "elf", "mpi", "openmp",
+    "default-features": ["cereal", "doxygen", "elf", "mpi", "openmp",
 			 "pthread", "shared", "test", "thallium"],
     "features": {
         "bench": {
