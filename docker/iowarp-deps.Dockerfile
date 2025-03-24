@@ -21,6 +21,5 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
 # Setup jarvis 
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack load iowarp && \
-    echo "module use $(scspkg module dir)" >> ${HOME}/.bashrc && \
     jarvis bootstrap from local
 
