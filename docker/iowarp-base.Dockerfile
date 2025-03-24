@@ -58,6 +58,9 @@ RUN git clone https://github.com/iowarp/iowarp-install.git && \
 RUN echo "source ${SPACK_DIR}/share/spack/setup-env.sh" >> ${HOME}/.bashrc && \
     echo "source /module_load.sh" >> ${HOME}/.bashrc
 
+# Verify LMOD works
+RUN . /module_load.sh && module avail
+
 #------------------------------------------------------------
 # SSH Configuration
 #------------------------------------------------------------
