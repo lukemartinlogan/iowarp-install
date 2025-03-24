@@ -22,11 +22,12 @@ RUN apt install -y \
     python3 python3-pip doxygen \
     lcov zlib1g-dev hdf5-tools \
     build-essential ca-certificates \
-    coreutils curl environment-modules \
+    coreutils curl \
     gfortran git gpg lsb-release python3 \
     python3-venv unzip zip \
-    bash jq gdbserver gdb gh nano vim
-COPY module_load.sh /module_load.sh
+    bash jq gdbserver gdb gh nano vim \
+    lua5.3 lua-filesystem lua-posix lua-bit32 lua-json lmod
+    COPY module_load.sh /module_load.sh
 
 #------------------------------------------------------------
 # Basic Spack Configuration
@@ -39,8 +40,7 @@ ENV SPACK_DIR="${HOME}/spack"
 ENV SPACK_VERSION="v0.22.2"
 
 # Install Spack
-RUN . /module_load.sh && \
-    git clone -b ${SPACK_VERSION} https://github.com/spack/spack ${SPACK_DIR} && \
+RUN git clone -b ${SPACK_VERSION} https://github.com/spack/spack ${SPACK_DIR} && \
     . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack external find
 

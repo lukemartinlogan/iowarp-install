@@ -10,7 +10,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Install iowarp
 RUN . /module_load.sh && \
     . "${SPACK_DIR}/share/spack/setup-env.sh" && \
-    spack install iowarp@main+nocompile
+    spack install iowarp@main+vfd+mpiio+nocompile
 
 # Setup modules
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \

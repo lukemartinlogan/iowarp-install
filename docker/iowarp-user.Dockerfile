@@ -7,5 +7,5 @@ LABEL description="Hermes Docker image with CI"
 # Install hermes
 RUN . /module_load.sh && \
     . "${SPACK_DIR}/share/spack/setup-env.sh" && \
-    spack uninstall iowarp 
-
+    spack uninstall iowarp \
+    spack install iowarp@main +vfd +mpiio
