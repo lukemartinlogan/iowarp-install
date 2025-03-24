@@ -57,6 +57,8 @@ class Iowarp(Package):
     depends_on('iowarp-cte+stdio', when='+stdio')
     depends_on('iowarp-cte+vfd', when='+vfd')
 
-    depends_on("py-ppi-jarvis-cd", when='+ppi', type=('build', 'run'))
+    depends_on('py-ppi-jarvis-cd', when='+ppi', type=('build', 'run'))
     depends_on('py-ppi-scspkg', when='+ppi', type=('build', 'run'))
-    depends_on("iowarp-base")
+    depends_on('ppi-chi-nettest', when='+ppi', type=('build', 'run'))
+    depends_on('py-iowarp-runtime-util', type=('build', 'run'))
+    depends_on('iowarp-base')
