@@ -1,8 +1,8 @@
 # Install ubuntu latest
-FROM lukemartinlogan/grc-repo:latest
+FROM iowarp/iowarp-base:latest
 LABEL maintainer="llogan@hawk.iit.edu"
 LABEL version="0.0"
-LABEL description="Chimaera dependencies docker image"
+LABEL description="IoWarp dependencies docker image"
 
 # Disable Prompt During Packages Installation
 ARG DEBIAN_FRONTEND=noninteractive
