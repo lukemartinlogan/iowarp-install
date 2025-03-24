@@ -8,5 +8,5 @@ docker build --no-cache -t iowarp-dev docker -f docker/iowarp-dev.Dockerfile
 docker tag iowarp-dev iowarp/iowarp-dev:latest
 # docker push iowarp/iowarp-dev:latest
 docker build --no-cache -t iowarp-user docker -f docker/iowarp-user.Dockerfile
-docker tag iowarp-dev iowarp/iowarp-user:latest
+docker tag iowarp-user iowarp/iowarp-user:latest
 # docker push iowarp/iowarp-user:latest
