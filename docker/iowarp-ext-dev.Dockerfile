@@ -1,13 +1,13 @@
-# Install ubuntu 22.04
 FROM iowarp/iowarp-deps:latest
 LABEL maintainer="llogan@hawk.iit.edu"
 LABEL version="0.0"
-LABEL description="Hermes Docker image with CI"
+LABEL description="IOWarp Docker image with CI"
 
-# Disable Prompt During Packages Installation
+# Disable prompt during packages installation.
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Install hermes
+# Install iowarp package from GitHub main branch.
+RUN dos2unix /module_load.sh
 RUN . /module_load.sh && \
     . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack uninstall -y iowarp && \
