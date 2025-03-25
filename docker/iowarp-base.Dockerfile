@@ -26,8 +26,8 @@ RUN apt install -y \
     gfortran git gpg lsb-release python3 \
     python3-venv unzip zip \
     bash jq gdbserver gdb gh nano vim \
-    lua5.3 lua-filesystem lua-posix lua-bit32 lua-json lmod
-    COPY module_load.sh /module_load.sh
+    lua5.3 lua-filesystem lua-posix lua-bit32 lua-json lmod dos2unix
+COPY module_load.sh /module_load.sh
 
 #------------------------------------------------------------
 # Basic Spack Configuration
@@ -59,6 +59,7 @@ RUN echo "source ${SPACK_DIR}/share/spack/setup-env.sh" >> ${HOME}/.bashrc && \
     echo "source /module_load.sh" >> ${HOME}/.bashrc
 
 # Verify LMOD works
+RUN dos2unix /module_load.sh
 RUN . /module_load.sh && module avail
 
 #------------------------------------------------------------

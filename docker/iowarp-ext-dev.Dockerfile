@@ -8,6 +8,7 @@ LABEL description="Hermes Docker image with CI"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install hermes
+RUN dos2unix /module_load.sh
 RUN . /module_load.sh && \
     . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack uninstall -y iowarp && \

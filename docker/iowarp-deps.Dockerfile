@@ -8,6 +8,7 @@ LABEL description="IoWarp dependencies docker image"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install iowarp
+RUN dos2unix /module_load.sh
 RUN . /module_load.sh && \
     . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack install iowarp@main+vfd+mpiio+nocompile
