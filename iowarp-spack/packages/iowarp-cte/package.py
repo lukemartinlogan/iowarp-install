@@ -80,6 +80,8 @@ class IowarpCte(CMakePackage):
             args.append(self.define("HERMES_ENABLE_ENCRYPT", "ON"))
         if "+nocompile" in self.spec or "+depsonly" in self.spec:
             args.append(self.define("HERMES_NO_COMPILE", "ON"))
+        if "+python" in self.spec:
+            args.append(self.define("HERMES_ENABLE_PYTHON", "ON"))
         return args
 
     def setup_run_environment(self, env):
