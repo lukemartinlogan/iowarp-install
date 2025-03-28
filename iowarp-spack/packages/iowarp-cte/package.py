@@ -57,7 +57,7 @@ class IowarpCte(CMakePackage):
     depends_on('iowarp-base')
 
     def cmake_args(self):
-        args = []
+        args = [self.define_from_variant("HERMES_ENABLE_PYTHON","python")]
         if "+debug" in self.spec:
             args.append("-DCMAKE_BUILD_TYPE=Debug")
         else:
@@ -71,9 +71,9 @@ class IowarpCte(CMakePackage):
             elif "mpich" in self.spec:
                 args.append("-DHERMES_MPICH=ON")
         if "+stdio" in self.spec:
-            args.append("-HERMES_ENABLE_STDIO_ADAPTER=ON")
+            args.append("-DHERMES_ENABLE_STDIO_ADAPTER=ON")
         if "+vfd" in self.spec:
-            args.append("-HERMES_ENABLE_VFD=ON")
+            args.append("-DHERMES_ENABLE_VFD=ON")
         if "+compress" in self.spec:
             args.append(self.define("HERMES_ENABLE_COMPRESS", "ON"))
         if "+encrypt" in self.spec:
