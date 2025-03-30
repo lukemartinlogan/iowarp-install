@@ -27,7 +27,6 @@ RUN apt install -y \
     python3-venv unzip zip \
     bash jq gdbserver gdb gh nano vim \
     lua5.3 lua-filesystem lua-posix lua-bit32 lua-json lmod dos2unix
-COPY module_load.sh /module_load.sh
 
 #------------------------------------------------------------
 # Spack Configuration
@@ -55,12 +54,7 @@ RUN git clone https://github.com/iowarp/iowarp-install.git && \
     spack repo add iowarp-install/iowarp-spack
 
 # Update .bashrc.
-RUN echo "source ${SPACK_DIR}/share/spack/setup-env.sh" >> ${HOME}/.bashrc && \
-    echo "source /module_load.sh" >> ${HOME}/.bashrc
-
-# Verify LMOD works.
-RUN dos2unix /module_load.sh
-RUN . /module_load.sh && module avail
+RUN echo "source ${SPACK_DIR}/share/spack/setup-env.sh" >> ${HOME}/.bashrc
 
 #------------------------------------------------------------
 # SSH Configuration
