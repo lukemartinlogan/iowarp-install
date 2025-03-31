@@ -13,7 +13,7 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
 # Setup modules.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack load iowarp && \
-    echo "source ~/.scspkg/bin/scspkg.sh" >> ${HOME}/.bashrc && \
+    echo "source ~/.scspkg/bin/scsmod.sh" >> ${HOME}/.bashrc && \
     scspkg init bash
 
 # Setup jarvis.
