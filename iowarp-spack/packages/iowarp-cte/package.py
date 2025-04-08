@@ -56,6 +56,13 @@ class IowarpCte(CMakePackage):
     depends_on('py-ppi-jarvis-cd', type=('build'))
     depends_on('iowarp-base')
 
+    # GPU variants
+    variant("cuda", default=False, description="Enable CUDA support for iowarp")
+    variant("rocm", default=False, description="Enable ROCm support for iowarp")
+    depends_on("iowarp-runtime+cuda", when="+cuda")
+    depends_on("iowarp-runtime+rocm", when="+rocm")
+
+
     def cmake_args(self):
         args = [self.define_from_variant("HERMES_ENABLE_PYTHON","python")]
         if "+debug" in self.spec:
@@ -82,6 +89,10 @@ class IowarpCte(CMakePackage):
             args.append(self.define("HERMES_NO_COMPILE", "ON"))
         if "+python" in self.spec:
             args.append(self.define("HERMES_ENABLE_PYTHON", "ON"))
+        if "+cuda" in self.spec:
+            args.append(self.define("HERMES_ENABLE_CUDA", "ON"))
+        if "+rocm" in self.spec:
+            args.append(self.define("HERMES_ENABLE_ROCM", "ON"))
         return args
 
     def setup_run_environment(self, env):
