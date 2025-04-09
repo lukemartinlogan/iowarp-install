@@ -15,8 +15,8 @@ class IowarpCte(CMakePackage):
         "dev", branch="dev",
         git="https://github.com/iowarp/content-transfer-engine.git"
     )
-    version("priv", branch="dev",
-            git="https://github.com/lukemartinlogan/hermes.git")
+    version("priv", branch="main",
+            git="https://github.com/iowarp/content-transfer-engine.git")
 
     # Common across cte-hermes-shm and hermes
     variant("posix", default=True, description="Enable POSIX adapter")
