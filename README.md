@@ -1,5 +1,9 @@
 # Install IOWarp
 
+## uv
+
+Coming soon
+
 ## conda
 
 1. Install Miniconda.
