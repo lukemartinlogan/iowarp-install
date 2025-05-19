@@ -1,8 +1,8 @@
 name: docker user
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [ main ]
 jobs:
   build:
     runs-on: ubuntu-latest
