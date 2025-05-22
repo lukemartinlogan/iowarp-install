@@ -1,4 +1,4 @@
-name: docker deps
+name: docker deps spack
 on:
   workflow_dispatch:
 jobs:
