@@ -1,11 +1,11 @@
-name: docker base
+name: docker test
 on:
   workflow_dispatch:
   
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 800
+    timeout-minutes: 360
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,13 +18,11 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build and push Dockerfile
+      - name: Build and export
         uses: docker/build-push-action@v6
         with:
           context: ./docker
-          file: ./docker/iowarp-base.Dockerfile
-          builder: ${{ steps.buildx.outputs.name }}
+          file: ./docker/iowarp-test.Dockerfile
           platforms: linux/amd64
-          push: true
-          tags: iowarp/iowarp-base:latest
+          outputs: type=docker,dest=/tmp/image.tar
           

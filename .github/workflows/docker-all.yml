@@ -1,4 +1,4 @@
-name: docker base
+name: docker all
 on:
   workflow_dispatch:
   push:
