@@ -1,11 +1,12 @@
 name: lin
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - '*'
+  workflow_dispatch: 
+  # push:
+  #   branches:
+  #     - main
+  #   tags:
+  #     - '*'
 jobs:
   build:
     runs-on: ubuntu-24.04
