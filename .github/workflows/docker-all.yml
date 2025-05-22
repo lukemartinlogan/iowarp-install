@@ -1,8 +1,8 @@
 name: docker all
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
 
 jobs:
   build:
@@ -47,15 +47,6 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: iowarp/iowarp-deps:latest
-      - name: Build and push iowarp-ext-dev
-        uses: docker/build-push-action@v6
-        with:
-          context: ./docker
-          file: ./docker/iowarp-ext-dev.Dockerfile
-          builder: ${{ steps.buildx.outputs.name }}
-          platforms: linux/amd64
-          push: true
-          tags: iowarp/iowarp-ext-dev:latest
       - name: Build and push iowarp-user
         uses: docker/build-push-action@v6
         with:
