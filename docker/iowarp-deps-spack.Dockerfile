@@ -1,10 +1,14 @@
-FROM iowarp/iowarp-deps-spack:latest
+FROM iowarp/iowarp-base:latest
 LABEL maintainer="llogan@hawk.iit.edu"
 LABEL version="0.0"
 LABEL description="IOWarp dependencies Docker image"
 
 # Disable prompt during packages installation.
 ARG DEBIAN_FRONTEND=noninteractive
+
+# Install iowarp.
+RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
+    spack install iowarp@main+vfd+mpiio+nocompile
 
 # Setup modules.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
@@ -15,5 +19,5 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
 # Setup jarvis.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack load iowarp && \
-    jarvis bootstrap from local && \
-    jarvis rg build
+    jarvis bootstrap from local
+
