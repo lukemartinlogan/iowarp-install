@@ -6,9 +6,12 @@ LABEL description="IOWarp dependencies Docker image"
 # Disable prompt during packages installation.
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Uninstall iowarp.
+RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
+    spack uninstall -y --all --dependents iowarp-base\
+
 # Install iowarp.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
-    spack uninstall -y --all --dependents iowarp-base && \
     spack install -y iowarp@main+vfd+mpiio+nocompile
 
 # Setup modules.
