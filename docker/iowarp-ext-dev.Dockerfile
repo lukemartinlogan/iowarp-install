@@ -1,7 +1,7 @@
 FROM iowarp/iowarp-deps:latest
 LABEL maintainer="llogan@hawk.iit.edu"
 LABEL version="0.0"
-LABEL description="IOWarp Docker image with CI"
+LABEL description="IOWarp Docker image for External (non-core) Developers"
 
 # Disable prompt during packages installation.
 ARG DEBIAN_FRONTEND=noninteractive
