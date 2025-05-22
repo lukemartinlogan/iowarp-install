@@ -23,35 +23,40 @@ jobs:
       - name: Build and push iowarp-base
         uses: docker/build-push-action@v5
         with:
-          context: ./docker/iowarp-base
+          context: ./docker
+          file: ./docker/iowarp-base.Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-base:latest
       - name: Build and push iowarp-deps-spack
         uses: docker/build-push-action@v5
         with:
-          context: ./docker/iowarp-deps-spack
+          context: ./docker
+          file: ./docker/iowarp-deps-spack.Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-deps-spack:latest
       - name: Build and push iowarp-deps
         uses: docker/build-push-action@v5
         with:
-          context: ./docker/iowarp-deps
+          context: ./docker
+          file: ./docker/iowarp-deps.Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-deps:latest
       - name: Build and push iowarp-ext-dev
         uses: docker/build-push-action@v5
         with:
-          context: ./docker/iowarp-ext-dev
+          context: ./docker
+          file: ./docker/iowarp-ext-dev.Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-ext-dev:latest
       - name: Build and push iowarp-user
         uses: docker/build-push-action@v5
         with:
-          context: ./docker/iowarp-user
+          context: ./docker
+          file: ./docker/iowarp-user.Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-user:latest
