@@ -10,4 +10,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack install iowarp@main+vfd+mpiio+nocompile
 
+# Uninstall iowarp-base
+RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
+    spack uninstall --all --dependents iowarp-base
 
