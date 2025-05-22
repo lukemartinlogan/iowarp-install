@@ -8,5 +8,4 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install iowarp package from GitHub main branch.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
-    spack uninstall -y iowarp && \
-    spack install -y iowarp@main +vfd +mpiio
+    spack install -y iowarp@main +vfd +mpiio +compress +encrypt
