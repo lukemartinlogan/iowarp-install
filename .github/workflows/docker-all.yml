@@ -21,42 +21,47 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build and push iowarp-base
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./docker
           file: ./docker/iowarp-base.Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          platforms: linux/amd64
           push: true
-          platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-base:latest
       - name: Build and push iowarp-deps-spack
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./docker
           file: ./docker/iowarp-deps-spack.Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          platforms: linux/amd64
           push: true
-          platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-deps-spack:latest
       - name: Build and push iowarp-deps
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./docker
           file: ./docker/iowarp-deps.Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          platforms: linux/amd64
           push: true
-          platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-deps:latest
       - name: Build and push iowarp-ext-dev
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./docker
           file: ./docker/iowarp-ext-dev.Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          platforms: linux/amd64
           push: true
-          platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-ext-dev:latest
       - name: Build and push iowarp-user
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./docker
           file: ./docker/iowarp-user.Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          platforms: linux/amd64
           push: true
-          platforms: linux/amd64,linux/arm64
           tags: iowarp/iowarp-user:latest
