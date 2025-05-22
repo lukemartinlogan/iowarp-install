@@ -8,7 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install iowarp.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
-    spack install -y iowarp@main+vfd+mpiio+nocompile
+    spack install -y iowarp@main+vfd+mpiio+compress+encrypt+nocompile
 
 # Uninstall iowarp-base
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \

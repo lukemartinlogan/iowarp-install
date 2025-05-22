@@ -12,7 +12,7 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
 
 # Install iowarp.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
-    spack install -y py-ppi-jarvis-cd
+    spack install -y iowarp@main+vfd+mpiio+compress+encrypt+nocompile
 
 # Setup modules.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
