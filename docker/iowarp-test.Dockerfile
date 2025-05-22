@@ -7,6 +7,8 @@ LABEL description="IOWarp Docker image with CI"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install iowarp package from GitHub main repository.
-RUN jarvis ppl index copy jarvis_hermes.hermes.test_hermes && \
+RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
+    spack load iowarp && \
+    jarvis ppl index copy jarvis_hermes.hermes.test_hermes && \
     jarvis ppl load yaml test_hermes.yaml && \
     jarvis ppl run
