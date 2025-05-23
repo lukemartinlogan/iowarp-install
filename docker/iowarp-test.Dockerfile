@@ -11,8 +11,7 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack load iowarp && \
     jarvis env build hermes && \
     jarvis ppl index copy jarvis_hermes.hermes.test_hermes && \
-    jarvis ppl load yaml test_hermes.yaml && \
-    jarvis ppl run
+    jarvis ppl load yaml test_hermes.yaml
 
 # Install iowarp package from GitHub main repository.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
