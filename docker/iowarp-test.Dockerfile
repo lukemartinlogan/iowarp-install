@@ -15,6 +15,8 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     jarvis ppl print && \
     cat $(jarvis path +shared)/hostfile
 
+RUN ipcs -lm | grep "max seg size" | awk '{print $5}'
+
 # Install iowarp package from GitHub main repository.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack load iowarp && \
