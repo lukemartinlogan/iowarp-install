@@ -6,7 +6,12 @@ LABEL description="IOWarp Docker image with CI"
 # Disable prompt during packages installation.
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Install iowarp package from GitHub main repository.
+# Build resource graph
+RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
+    spack load iowarp && \
+    jarvis rg build
+
+# Create pipeline.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack load iowarp && \
     jarvis env build hermes && \
@@ -17,7 +22,7 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     cat $(jarvis path +shared)/chimaera_run/hostfile  && \
     cat $(jarvis path +shared)/chimaera_run/chimaera_server.yaml
 
-# Install iowarp package from GitHub main repository.
+# Run pipeline.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack load iowarp && \
     jarvis ppl run
