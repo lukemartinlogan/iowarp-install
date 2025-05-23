@@ -16,12 +16,6 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     jarvis ppl print && \
     cat $(jarvis path +shared)/chimaera_run/hostfile  && \
     cat $(jarvis path +shared)/chimaera_run/chimaera_server.yaml
-    
-RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
-    spack load iowarp && \ 
-    chi_net_find sockets lo 127.0.0.1/32 out.txt
-
-RUN ipcs -lm | grep "max seg size" | awk '{print $5}'
 
 # Install iowarp package from GitHub main repository.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
