@@ -26,5 +26,5 @@ jobs:
           platforms: linux/amd64
           outputs: type=docker,dest=/tmp/image.tar
           build-args: |
-            SHM_SIZE=16gb
-          shm-size: 16gb
+            SHM_SIZE=32gb
+          shm-size: 32gb
