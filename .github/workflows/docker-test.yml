@@ -25,4 +25,6 @@ jobs:
           file: ./docker/iowarp-test.Dockerfile
           platforms: linux/amd64
           outputs: type=docker,dest=/tmp/image.tar
-          
+          build-args: |
+            SHM_SIZE=4gb
+          shm-size: 4gb
