@@ -17,7 +17,7 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     jarvis env build hermes && \
     jarvis ppl index copy jarvis_hermes.hermes.test_hermes && \
     jarvis ppl load yaml test_hermes.yaml && \
-    jarvis pkg conf chimaera_run data_shm=4g rdata_shm=4g task_shm=4g && \
+    jarvis pkg conf chimaera_run data_shm=2g rdata_shm=2g task_shm=2g && \
     jarvis ppl prepend asan && \
     jarvis ppl print && \
     cat $(jarvis path +shared)/chimaera_run/hostfile  && \
