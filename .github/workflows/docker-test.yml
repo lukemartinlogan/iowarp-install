@@ -28,3 +28,4 @@ jobs:
           build-args: |
             SHM_SIZE=32gb
           shm-size: 32gb
+          memory: 32gb
