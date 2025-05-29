@@ -12,18 +12,27 @@ RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     jarvis rg build
 
 # Create pipeline.
+# RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
+#     spack load iowarp && \
+#     jarvis env build hermes && \
+#     jarvis ppl index load jarvis_hermes.hermes.test_hermes && \
+#     jarvis pkg conf chimaera_run data_shm=500m rdata_shm=500m task_shm=500m qdepth=50 && \
+#     jarvis ppl prepend asan && \
+#     jarvis ppl print && \
+#     cat $(jarvis path +shared)/chimaera_run/hostfile  && \
+#     cat $(jarvis path +shared)/chimaera_run/chimaera_server.yaml
+
+# Create pipeline.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack load iowarp && \
     jarvis env build hermes && \
-    jarvis ppl index copy jarvis_hermes.hermes.test_hermes && \
-    jarvis ppl load yaml test_hermes.yaml && \
-    jarvis pkg conf chimaera_run data_shm=500m rdata_shm=500m task_shm=500m qdepth=50 && \
-    jarvis ppl prepend asan && \
+    jarvis ppl append chimaera_run data_shm=500m rdata_shm=500m task_shm=500m qdepth=50 && \
     jarvis ppl print && \
     cat $(jarvis path +shared)/chimaera_run/hostfile  && \
     cat $(jarvis path +shared)/chimaera_run/chimaera_server.yaml
 
+
 # Run pipeline.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack load iowarp && \
-    jarvis ppl run
+    jarvis ppl start
