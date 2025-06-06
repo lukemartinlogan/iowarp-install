@@ -8,7 +8,7 @@ Coming soon
 
 1. Install Miniconda.
 2. `$ source ~/miniconda3/bin/activate`
-3. `$ conda install hyoklee::iowarp`
+3. `$ conda install iowarp::iowarp`
 
 ## docker
 
