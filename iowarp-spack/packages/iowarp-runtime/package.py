@@ -8,8 +8,6 @@ class IowarpRuntime(CMakePackage):
             branch='main', submodules=True, preferred=True)
     version('dev',
             branch='dev', submodules=True)
-    version('priv',
-            branch='main', submodules=True, git='https://github.com/lukemartinlogan/iowarp-runtime.git')
 
     # Common across cte-hermes-shm and hermes
     variant('debug', default=False, description='Build shared libraries')
