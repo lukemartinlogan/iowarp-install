@@ -12,7 +12,8 @@ requirements:
     - setuptools
   run:
     - python
-
+    - iowarp::jarvis_cd
+    - iowarp::omni
 files:
   - README.md
   - ./vcpkg/installed/x64-linux/
@@ -20,8 +21,10 @@ files:
 test:
   requires:
     - pip
+    - iowarp::jarvis_cd
+    - iowarp::omni    
   commands:
-    - pip --help
+    - wrp
   
 about:
   home: https://grc.iit.edu/research/projects/iowarp/

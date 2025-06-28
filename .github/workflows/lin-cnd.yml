@@ -2,9 +2,9 @@ name: conda
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
+  push:
+     branches:
+       - main
 
 jobs:
   build:
@@ -27,6 +27,7 @@ jobs:
         with:
           auto-update-conda: true
           python-version: 3.12
+          channels: conda-forge
       - name: build-conda
         run: |
           conda install -y conda-build
