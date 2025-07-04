@@ -3,7 +3,7 @@ from spack.package import *
 class PpiChiNettest(CMakePackage):
     homepage = "https://github.com/iowarp/ppi-chi-nettest.git"
     git = "https://github.com/iowarp/ppi-chi-nettest.git"
-    version('main', branch='main', submodules=True)
+    version('main', branch='main', submodules=True, preferred=True)
     version('dev', branch='dev')
     
     # Required deps
