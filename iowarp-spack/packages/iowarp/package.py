@@ -51,7 +51,6 @@ class Iowarp(Package):
     depends_on("iowarp-cte@dev", when="@dev")
     
     depends_on('iowarp-cte+debug', when='+debug')
-    depends_on('iowarp-cte+vfd', when='+vfd')
     depends_on('iowarp-cte+ares', when='+ares')
     depends_on('iowarp-cte+encrypt', when='+encrypt')
     depends_on('iowarp-cte+compress', when='+compress')
