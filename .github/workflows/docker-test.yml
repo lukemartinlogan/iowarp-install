@@ -26,6 +26,6 @@ jobs:
           platforms: linux/amd64
           push: true
           build-args: |
-            SHM_SIZE=32gb
-          shm-size: 32gb
+            SHM_SIZE=12gb
+          shm-size: 12gb
           tags: iowarp/iowarp-test:latest
