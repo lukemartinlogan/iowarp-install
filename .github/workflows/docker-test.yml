@@ -28,4 +28,4 @@ jobs:
           build-args: |
             SHM_SIZE=32gb
           shm-size: 32gb
-
+          tags: iowarp/iowarp-test:latest
