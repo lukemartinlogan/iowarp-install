@@ -20,6 +20,12 @@ class IowarpCte(CMakePackage):
 
     variant("debug", default=False, description="Build shared libraries")
     variant("vfd", default=False, description="Enable HDF5 VFD")
+    variant("ares", default=False, description="Enable full libfabric install")
+    variant("encrypt", default=False,
+            description="Include encryption libraries")
+    variant("compress", default=False,
+            description="Include compression libraries")
+    variant("python", default=False, description="Install python bindings")
     variant(
         "nocompile",
         default=False,
@@ -37,6 +43,9 @@ class IowarpCte(CMakePackage):
     depends_on('cte-hermes-shm+elf')
     depends_on('cte-hermes-shm+debug', when='+debug')
     depends_on('cte-hermes-shm+vfd', when='+vfd')
+    depends_on('cte-hermes-shm+ares', when='+ares')
+    depends_on('cte-hermes-shm+encrypt', when='+encrypt')
+    depends_on('cte-hermes-shm+compress', when='+compress')
     depends_on('py-ppi-jarvis-cd', type=('build'))
     depends_on('iowarp-base')
 
@@ -55,8 +64,16 @@ class IowarpCte(CMakePackage):
             args.append("-DCMAKE_BUILD_TYPE=Release")
         if "+vfd" in self.spec:
             args.append("-DHERMES_ENABLE_VFD=ON")
+        if "+ares" in self.spec:
+            args.append("-DHERMES_ENABLE_ARES=ON")
+        if "+compress" in self.spec:
+            args.append(self.define("HERMES_ENABLE_COMPRESS", "ON"))
+        if "+encrypt" in self.spec:
+            args.append(self.define("HERMES_ENABLE_ENCRYPT", "ON"))
         if "+nocompile" in self.spec or "+depsonly" in self.spec:
             args.append(self.define("HERMES_NO_COMPILE", "ON"))
+        if "+python" in self.spec:
+            args.append(self.define("HERMES_ENABLE_PYTHON", "ON"))
         if "+cuda" in self.spec:
             args.append(self.define("HERMES_ENABLE_CUDA", "ON"))
         if "+rocm" in self.spec:

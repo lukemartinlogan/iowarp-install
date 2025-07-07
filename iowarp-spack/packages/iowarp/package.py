@@ -25,6 +25,12 @@ class Iowarp(Package):
     variant("stdio", default=True, description="Enable STDIO adapter")
     variant("debug", default=False, description="Build shared libraries")
     variant("vfd", default=False, description="Enable HDF5 VFD")
+    variant("ares", default=False, description="Enable full libfabric install")
+    variant("encrypt", default=False,
+            description="Include encryption libraries")
+    variant("compress", default=False,
+            description="Include compression libraries")
+    variant("python", default=False, description="Install python bindings")
     variant(
         "nocompile",
         default=False,
@@ -46,6 +52,10 @@ class Iowarp(Package):
     
     depends_on('iowarp-cte+debug', when='+debug')
     depends_on('iowarp-cte+vfd', when='+vfd')
+    depends_on('iowarp-cte+ares', when='+ares')
+    depends_on('iowarp-cte+encrypt', when='+encrypt')
+    depends_on('iowarp-cte+compress', when='+compress')
+    depends_on('iowarp-cte+python', when='+python')
 
     # Add iowarp-cae dependencies
     depends_on("iowarp-cae")
