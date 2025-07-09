@@ -14,10 +14,6 @@ RUN cd iowarp-install && \
 RUN cd grc-repo && \
     git pull origin main
 
-# Clone GRC tutorial
-RUN git clone https://github.com/grc-iit/grc-tutorial.git && \
-    cd grc-tutorial
-
 # Install iowarp.
 RUN . "${SPACK_DIR}/share/spack/setup-env.sh" && \
     spack install -y iowarp@main+vfd+mpiio+compress+encrypt+nocompile
