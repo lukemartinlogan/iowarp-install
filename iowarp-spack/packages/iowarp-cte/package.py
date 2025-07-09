@@ -19,7 +19,6 @@ class IowarpCte(CMakePackage):
             git="https://github.com/iowarp/content-transfer-engine.git")
 
     variant("debug", default=False, description="Build shared libraries")
-    variant("vfd", default=False, description="Enable HDF5 VFD")
     variant("ares", default=False, description="Enable full libfabric install")
     variant("encrypt", default=False,
             description="Include encryption libraries")
@@ -42,7 +41,6 @@ class IowarpCte(CMakePackage):
 
     depends_on('cte-hermes-shm+elf')
     depends_on('cte-hermes-shm+debug', when='+debug')
-    depends_on('cte-hermes-shm+vfd', when='+vfd')
     depends_on('cte-hermes-shm+ares', when='+ares')
     depends_on('cte-hermes-shm+encrypt', when='+encrypt')
     depends_on('cte-hermes-shm+compress', when='+compress')
@@ -62,8 +60,6 @@ class IowarpCte(CMakePackage):
             args.append("-DCMAKE_BUILD_TYPE=Debug")
         else:
             args.append("-DCMAKE_BUILD_TYPE=Release")
-        if "+vfd" in self.spec:
-            args.append("-DHERMES_ENABLE_VFD=ON")
         if "+ares" in self.spec:
             args.append("-DHERMES_ENABLE_ARES=ON")
         if "+compress" in self.spec:
