@@ -37,10 +37,12 @@ class GitUrl:
         self.url_ssh = f"git@github.com:{username}/{package_name}.git"
 
 class WrpGit:
-    def __init__(self, config_path: str = None):
+    def __init__(self, script_dir: Path):
+        self.script_dir = script_dir
         self.iowarp_dir = self.check_iowarp_env()
-        self.config_path = config_path or (Path(os.getcwd()) / 'wrpgit.yaml')
-        self.config = self.load_config()
+        self.config_path = self.script_dir / 'wrpgit.yaml'
+        self.default_config_path = self.script_dir / 'wrpgit-default.yaml'
+        self.config = None
 
     def check_iowarp_env(self) -> Path:
         """Check if IOWARP environment variable is set and valid"""
@@ -57,27 +59,35 @@ class WrpGit:
             WrpPrinter.print_error(f"{marker} does not exist. Did you run 'wrpgit clone' first?")
             sys.exit(1)
 
-    def load_config(self) -> dict:
-        """Load YAML configuration"""
-        if self.config_path.exists():
+    def check_config(self):
+        """Check if config exists and load it"""
+        if not self.config_path.exists():
+            WrpPrinter.print_error(f"Configuration file {self.config_path} does not exist. Run 'wrpgit init' first.")
+            sys.exit(1)
+        try:
             with open(self.config_path) as f:
-                return yaml.safe_load(f)
+                self.config = yaml.safe_load(f)
+        except Exception as e:
+            WrpPrinter.print_error(f"Error loading configuration: {str(e)}")
+            sys.exit(1)
 
-        # Default configuration
-        return {
-            'username': 'iowarp',
-            'core_dev': False,
-            'modules': [
-                {'name': 'cte-hermes-shm', 'build': True, 'type': 'cmake', 'preset': 'debug'},
-                {'name': 'iowarp-runtime', 'build': True, 'type': 'cmake', 'preset': 'debug', 'depends_on': 'cte-hermes-shm'},
-                {'name': 'content-transfer-engine', 'build': True, 'type': 'cmake', 'preset': 'debug', 'depends_on': 'iowarp-runtime'},
-                {'name': 'content-assimilation-engine', 'build': True, 'type': 'cmake', 'preset': 'debug', 'depends_on': 'content-transfer-engine'},
-                {'name': 'ppi-jarvis-cd', 'build': False, 'type': 'python', 'depends_on': 'ppi-jarvis-util'},
-                {'name': 'ppi-jarvis-util', 'build': False, 'type': 'python'},
-                {'name': 'iowarp-runtime-util', 'build': False, 'type': 'python', 'depends_on': 'ppi-jarvis-util'},
-                {'name': 'ppi-chi-nettest', 'build': False, 'type': 'cmake', 'preset': 'debug'}
-            ]
-        }
+    def init(self):
+        """Initialize wrpgit configuration"""
+        if self.config_path.exists():
+            WrpPrinter.print_warn(f"Configuration file {self.config_path} already exists, skipping...")
+            return
+        
+        if not self.default_config_path.exists():
+            WrpPrinter.print_error(f"Default configuration file {self.default_config_path} not found")
+            sys.exit(1)
+
+        try:
+            WrpPrinter.print_info(f"Creating configuration file {self.config_path}")
+            shutil.copy2(self.default_config_path, self.config_path)
+            WrpPrinter.print_ok("Successfully created configuration file")
+        except Exception as e:
+            WrpPrinter.print_error(f"Error creating configuration file: {str(e)}")
+            sys.exit(1)
 
     def save_config(self):
         """Save current configuration to YAML file"""
@@ -86,6 +96,7 @@ class WrpGit:
 
     def clone(self):
         """Clone all repositories"""
+        self.check_config()
         WrpPrinter.print_info(f"Creating directory {self.iowarp_dir}")
         self.iowarp_dir.mkdir(parents=True, exist_ok=True)
         (self.iowarp_dir / '.wrpgit').touch()
@@ -105,7 +116,7 @@ class WrpGit:
             urls = GitUrl(self.config['username'], pkg_name)
             success = False
 
-            if self.config['username'] != 'iowarp':
+            if self.config['username'] != 'iowarp' and module['fork']:
                 try:
                     WrpPrinter.print_info(f"Trying SSH URL: {urls.url_ssh}")
                     git.Repo.clone_from(urls.url_ssh, target_dir)
@@ -358,133 +369,81 @@ class WrpGit:
                 continue
 
 class WrpGitArgParser(ArgParse):
+    def __init__(self):
+        super().__init__()
+        self.script_dir = Path(__file__).parent
+
     def define_options(self):
+        # Init command
+        self.add_cmd('init')
+        self.add_args([])
+
         # Clone command
         self.add_cmd('clone')
-        self.add_args([
-            {
-                'name': 'config',
-                'msg': 'Path to YAML configuration file',
-                'type': str,
-                'default': None,
-                'pos': True
-            }
-        ])
+        self.add_args([])
 
         # Pull command
         self.add_cmd('pull')
-        self.add_args([
-            {
-                'name': 'config',
-                'msg': 'Path to YAML configuration file',
-                'type': str,
-                'default': None,
-                'pos': True
-            }
-        ])
+        self.add_args([])
 
         # Setup command
         self.add_cmd('setup')
-        self.add_args([
-            {
-                'name': 'config',
-                'msg': 'Path to YAML configuration file',
-                'type': str,
-                'default': None,
-                'pos': True
-            }
-        ])
+        self.add_args([])
 
         # Env command
         self.add_cmd('env')
-        self.add_args([
-            {
-                'name': 'config',
-                'msg': 'Path to YAML configuration file',
-                'type': str,
-                'default': None,
-                'pos': True
-            }
-        ])
+        self.add_args([])
 
         # Build command
         self.add_cmd('build')
-        self.add_args([
-            {
-                'name': 'config',
-                'msg': 'Path to YAML configuration file',
-                'type': str,
-                'default': None,
-                'pos': True
-            }
-        ])
+        self.add_args([])
 
         # Install command
         self.add_cmd('install')
-        self.add_args([
-            {
-                'name': 'config',
-                'msg': 'Path to YAML configuration file',
-                'type': str,
-                'default': None,
-                'pos': True
-            }
-        ])
+        self.add_args([])
 
         # Clear command
         self.add_cmd('clear')
-        self.add_args([
-            {
-                'name': 'config',
-                'msg': 'Path to YAML configuration file',
-                'type': str,
-                'default': None,
-                'pos': True
-            }
-        ])
+        self.add_args([])
 
         # Fork command
         self.add_cmd('fork')
-        self.add_args([
-            {
-                'name': 'config',
-                'msg': 'Path to YAML configuration file',
-                'type': str,
-                'default': None,
-                'pos': True
-            }
-        ])
+        self.add_args([])
+
+    def init(self):
+        wrpgit = WrpGit(self.script_dir)
+        wrpgit.init()
 
     def clone(self):
-        wrpgit = WrpGit(self.kwargs['config'])
+        wrpgit = WrpGit(self.script_dir)
         wrpgit.clone()
 
     def pull(self):
-        wrpgit = WrpGit(self.kwargs['config'])
+        wrpgit = WrpGit(self.script_dir)
         wrpgit.pull()
 
     def setup(self):
-        wrpgit = WrpGit(self.kwargs['config'])
+        wrpgit = WrpGit(self.script_dir)
         wrpgit.setup()
 
     def env(self):
-        wrpgit = WrpGit(self.kwargs['config'])
+        wrpgit = WrpGit(self.script_dir)
         wrpgit.env()
 
     def build(self):
-        wrpgit = WrpGit(self.kwargs['config'])
+        wrpgit = WrpGit(self.script_dir)
         wrpgit.build()
 
     def install(self):
-        wrpgit = WrpGit(self.kwargs['config'])
+        wrpgit = WrpGit(self.script_dir)
         wrpgit.install()
 
     def clear(self):
-        wrpgit = WrpGit(self.kwargs['config'])
+        wrpgit = WrpGit(self.script_dir)
         wrpgit.clear()
 
     def fork(self):
-        wrpgit = WrpGit(self.kwargs['config'])
+        wrpgit = WrpGit(self.script_dir)
         wrpgit.fork()
 
 def main():
