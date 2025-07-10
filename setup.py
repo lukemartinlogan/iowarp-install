@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(
-    name="iowarp-clone",
+    name="wrpclone",
     version="0.1",
-    scripts=['iowarp-clone'],
+    scripts=['wrpclone'],
     python_requires='>=3.8',
     author="IOWarp Team",
     author_email="llogan@hawk.iit.edu",
