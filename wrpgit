@@ -36,6 +36,15 @@ class GitUrl:
         self.url_https = f"https://github.com/{username}/{package_name}.git"
         self.url_ssh = f"git@github.com:{username}/{package_name}.git"
 
+    def get_url(self, protocol: str) -> str:
+        """Get the URL for the specified protocol.
+        Args:
+            protocol: Either 'ssh' or 'https'
+        Returns:
+            The URL string for the specified protocol
+        """
+        return self.url_ssh if protocol == 'ssh' else self.url_https
+
 class WrpGit:
     def __init__(self):
         self.script_dir = Path(__file__).parent
@@ -105,6 +114,11 @@ class WrpGit:
         if not self.config_path.exists():
             self.save_config()
 
+        # Validate protocol
+        if self.config.get('protocol', 'https') not in ['https', 'ssh']:
+            WrpPrinter.print_error(f"Invalid protocol {self.config.get('protocol')}, must be 'https' or 'ssh'")
+            sys.exit(1)
+
         for module in self.config['modules']:
             pkg_name = module['name']
             target_dir = self.iowarp_dir / pkg_name
@@ -113,29 +127,32 @@ class WrpGit:
                 continue
 
             WrpPrinter.print_info(f"Attempting to clone {pkg_name}...")
-            urls = GitUrl(self.config['username'], pkg_name)
-            success = False
-
-            if self.config['username'] != 'iowarp' and module['fork']:
+            
+            # Determine which URLs to use based on fork setting
+            if module.get('fork', False):
+                # For forked repos, try user's URL first
+                urls = GitUrl(self.config['username'], pkg_name)
+                url = urls.get_url(self.config['protocol'])
+                WrpPrinter.print_info(f"Repository marked for fork, trying {self.config['protocol'].upper()} URL: {url}")
+                
                 try:
-                    WrpPrinter.print_info(f"Trying SSH URL: {urls.url_ssh}")
-                    git.Repo.clone_from(urls.url_ssh, target_dir)
-                    success = True
-                    WrpPrinter.print_ok(f"Successfully cloned {pkg_name} using SSH")
-                    # Add iowarp as a remote
-                    self.add_remote(target_dir, 'iowarp', 'iowarp')
-                except git.exc.GitCommandError as e:
-                    WrpPrinter.print_warn(f"Failed to clone {pkg_name} using SSH: {str(e)}")
-
-            if not success:
-                try:
-                    url = urls.url_ssh if self.config['core_dev'] else urls.url_https
-                    WrpPrinter.print_info(f"Trying {'SSH' if self.config['core_dev'] else 'HTTPS'} URL: {url}")
                     git.Repo.clone_from(url, target_dir)
-                    success = True
-                    WrpPrinter.print_ok(f"Successfully cloned {pkg_name}")
+                    WrpPrinter.print_ok(f"Successfully cloned {pkg_name} from {self.config['username']}")
                 except git.exc.GitCommandError as e:
-                    WrpPrinter.print_error(f"Failed to clone {pkg_name}: {str(e)}")
+                    WrpPrinter.print_error(f"Failed to clone {pkg_name} from {self.config['username']}: {str(e)}")
+                    sys.exit(1)
+            else:
+                # For non-forked repos, try iowarp URL
+                urls = GitUrl('iowarp', pkg_name)
+                url = urls.get_url(self.config['protocol'])
+                WrpPrinter.print_info(f"Trying {self.config['protocol'].upper()} URL: {url}")
+                
+                try:
+                    git.Repo.clone_from(url, target_dir)
+                    WrpPrinter.print_ok(f"Successfully cloned {pkg_name} from iowarp")
+                except git.exc.GitCommandError as e:
+                    WrpPrinter.print_error(f"Failed to clone {pkg_name} from iowarp: {str(e)}")
+                    sys.exit(1)
 
     def add_remote(self, repo_dir: Path, username: str, alias: str = None):
         """Add a git remote to a repository"""
@@ -151,7 +168,13 @@ class WrpGit:
             if username == 'iowarp' and repo_dir.name == 'scspkg':
                 username = 'grc-iit'
             
-            url = f"git@github.com:{username}/{repo_dir.name}.git"
+            # Use protocol from config
+            if self.config.get('protocol', 'https') not in ['https', 'ssh']:
+                WrpPrinter.print_warn(f"Invalid protocol {self.config.get('protocol')}, defaulting to https")
+                self.config['protocol'] = 'https'
+            
+            urls = GitUrl(username, repo_dir.name)
+            url = urls.get_url(self.config['protocol'])
             repo.create_remote(alias, url)
             WrpPrinter.print_ok(f"Added remote {alias} ({url}) to {repo_dir.name}")
         except git.exc.InvalidGitRepositoryError:
@@ -162,6 +185,7 @@ class WrpGit:
     def pull(self):
         """Pull updates for all repositories"""
         self.check_clone_marker()
+        self.check_config()
         
         for repo_dir in self.iowarp_dir.iterdir():
             if not repo_dir.is_dir() or repo_dir.name.startswith('.'):
@@ -178,6 +202,7 @@ class WrpGit:
     def setup(self):
         """Setup the environment"""
         self.check_clone_marker()
+        self.check_config()
         home_dir = str(Path.home())
         
         # First create scspkg modules
@@ -221,6 +246,7 @@ class WrpGit:
     def env(self):
         """Source environment files"""
         self.check_clone_marker()
+        self.check_config()
         
         for module in self.config['modules']:
             repo_dir = self.iowarp_dir / module['name']
@@ -228,7 +254,7 @@ class WrpGit:
                 continue
 
             try:
-                WrpPrinter.print_info(f"Creating env.sh for {repo_dir.parent}/{module['name']}")
+                WrpPrinter.print_info(f"Creating env.sh for {module['name']}...")
                 env_file = repo_dir / 'env.sh'
                 with open(env_file, 'w') as f:
                     if 'depends_on' in module:
@@ -245,6 +271,7 @@ class WrpGit:
     def build(self):
         """Build and install all repositories"""
         self.check_clone_marker()
+        self.check_config()
         
         for module in self.config['modules']:
             if not module['build']:
@@ -304,6 +331,7 @@ class WrpGit:
     def install(self):
         """Install all repositories"""
         self.check_clone_marker()
+        self.check_config()
         
         for module in self.config['modules']:
             if module['type'] != 'cmake':
@@ -326,6 +354,7 @@ class WrpGit:
     def clear(self):
         """Clear all build directories"""
         self.check_clone_marker()
+        self.check_config()
         
         for module in self.config['modules']:
             if module['type'] != 'cmake':

@@ -1,5 +1,5 @@
 username: iowarp
-core_dev: False
+protocol: ssh
 modules:
 - name: cte-hermes-shm
   build: True
