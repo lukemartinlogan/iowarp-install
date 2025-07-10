@@ -1,5 +1,6 @@
 username: iowarp
 protocol: ssh
+token: "" # Optional - only required if you plan to fork repositories
 modules:
 - name: cte-hermes-shm
   build: True
