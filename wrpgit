@@ -120,27 +120,31 @@ class GitUrl:
 
 class WrpGit:
     def __init__(self):
-        """Initialize WrpGit with configuration"""
+        """Initialize WrpGit"""
         self.script_dir = Path(__file__).parent
         self.iowarp_dir = self.check_iowarp_env()
-        self.config = self._load_config()
-        self.username = self.config.get('username', 'iowarp')
-        self.protocol = self.config.get('protocol', 'ssh')
-        self.token = self.config.get('token', '')  # Allow empty token
-        
-    def _load_config(self) -> dict:
-        """Load configuration from yaml file"""
-        config_file = Path('wrpgit.yaml')
-        default_config_file = Path('wrpgit-default.yaml')
+        self.config = None
+        self.config_path = self.script_dir / Path('wrpgit.yaml')
+        self.default_config_path = self.script_dir / Path('wrpgit-default.yaml')
 
-        if config_file.exists():
-            with open(config_file) as f:
-                return yaml.safe_load(f)
-        elif default_config_file.exists():
-            with open(default_config_file) as f:
-                return yaml.safe_load(f)
-        else:
-            raise FileNotFoundError("Neither wrpgit.yaml nor wrpgit-default.yaml found")
+    def check_config(self):
+        """Check if config exists and load it"""
+        if not self.config_path.exists():
+            WrpPrinter.print_error(f"Configuration file {self.config_path} does not exist. Run 'wrpgit init' first.")
+            sys.exit(1)
+            
+        try:
+            with open(self.config_path) as f:
+                self.config = yaml.safe_load(f)
+                
+            # Set defaults after loading config
+            self.username = self.config.get('username', 'iowarp')
+            self.protocol = self.config.get('protocol', 'ssh')
+            self.token = self.config.get('token', '')
+            
+        except Exception as e:
+            WrpPrinter.print_error(f"Error loading configuration: {str(e)}")
+            sys.exit(1)
 
     def check_iowarp_env(self) -> Path:
         """Check if IOWARP environment variable is set and valid"""
@@ -155,18 +159,6 @@ class WrpGit:
         marker = self.iowarp_dir / '.wrpgit'
         if not marker.exists():
             WrpPrinter.print_error(f"{marker} does not exist. Did you run 'wrpgit clone' first?")
-            sys.exit(1)
-
-    def check_config(self):
-        """Check if config exists and load it"""
-        if not self.config_path.exists():
-            WrpPrinter.print_error(f"Configuration file {self.config_path} does not exist. Run 'wrpgit init' first.")
-            sys.exit(1)
-        try:
-            with open(self.config_path) as f:
-                self.config = yaml.safe_load(f)
-        except Exception as e:
-            WrpPrinter.print_error(f"Error loading configuration: {str(e)}")
             sys.exit(1)
 
     def init(self):
@@ -298,7 +290,6 @@ class WrpGit:
 
     def setup(self):
         """Setup the environment"""
-        self.check_clone_marker()
         self.check_config()
         home_dir = str(Path.home())
         
@@ -342,7 +333,6 @@ class WrpGit:
 
     def env(self):
         """Source environment files"""
-        self.check_clone_marker()
         self.check_config()
         
         for module in self.config['modules']:
@@ -469,6 +459,7 @@ class WrpGit:
 
     def fork(self):
         """Fork all repositories marked for forking in config"""
+        self.check_config()
         # Check token is available
         if not self.token:
             WrpPrinter.print_error("GitHub token is required for forking. Please add 'token: your_token' to your wrpgit.yaml file.")
@@ -506,46 +497,68 @@ class WrpGit:
         finally:
             g.close()
 
+    def teardown(self):
+        """Destroy all scspkg modules"""
+        self.check_config()
+        WrpPrinter.print_info("Tearing down all modules...")
+        
+        for module in self.config['modules']:
+            module_name = module['name']
+            WrpPrinter.print_info(f"Destroying module {module_name}")
+            
+            try:
+                # Run scspkg destroy command
+                cmd = f"scspkg destroy {module_name}"
+                result = Exec(cmd, LocalExecInfo())
+                
+                if result.exit_code == 0:
+                    WrpPrinter.print_ok(f"Successfully destroyed {module_name}")
+                else:
+                    WrpPrinter.print_error(f"Failed to destroy {module_name}: {result.stderr}")
+                    
+            except Exception as e:
+                WrpPrinter.print_error(f"Error destroying {module_name}: {str(e)}")
+
+    def recreate(self):
+        """Teardown and setup all modules"""
+        self.check_config()
+        WrpPrinter.print_info("Recreating all modules...")
+        
+        # First teardown
+        self.teardown()
+        
+        # Then setup
+        self.setup()
+        
+        WrpPrinter.print_ok("Recreation complete")
+
 class WrpGitArgParser(ArgParse):
     def __init__(self):
         super().__init__()
         self.script_dir = Path(__file__).parent
 
     def define_options(self):
-        # Init command
+        # Existing commands
         self.add_cmd('init')
         self.add_args([])
 
-        # Clone command
         self.add_cmd('clone')
         self.add_args([])
 
-        # Pull command
-        self.add_cmd('pull')
-        self.add_args([])
-
-        # Setup command
-        self.add_cmd('setup')
-        self.add_args([])
-
-        # Env command
-        self.add_cmd('env')
-        self.add_args([])
-
-        # Build command
-        self.add_cmd('build')
-        self.add_args([])
-
-        # Install command
-        self.add_cmd('install')
-        self.add_args([])
-
-        # Clean command
         self.add_cmd('clean')
         self.add_args([])
 
-        # Fork command
+        self.add_cmd('setup')
+        self.add_args([])
+
         self.add_cmd('fork')
+        self.add_args([])
+
+        # New commands
+        self.add_cmd('teardown')
+        self.add_args([])
+
+        self.add_cmd('recreate')
         self.add_args([])
 
     def init(self):
@@ -556,33 +569,25 @@ class WrpGitArgParser(ArgParse):
         wrpgit = WrpGit()
         wrpgit.clone()
 
-    def pull(self):
+    def clean(self):
         wrpgit = WrpGit()
-        wrpgit.pull()
+        wrpgit.clean()
 
     def setup(self):
         wrpgit = WrpGit()
         wrpgit.setup()
 
-    def env(self):
-        wrpgit = WrpGit()
-        wrpgit.env()
-
-    def build(self):
-        wrpgit = WrpGit()
-        wrpgit.build()
-
-    def install(self):
-        wrpgit = WrpGit()
-        wrpgit.install()
-
-    def clean(self):
-        wrpgit = WrpGit()
-        wrpgit.clean()
-
     def fork(self):
         wrpgit = WrpGit()
         wrpgit.fork()
+
+    def teardown(self):
+        wrpgit = WrpGit()
+        wrpgit.teardown()
+
+    def recreate(self):
+        wrpgit = WrpGit()
+        wrpgit.recreate()
 
 def main():
     args = WrpGitArgParser()

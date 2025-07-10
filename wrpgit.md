@@ -126,4 +126,75 @@ Extend the YAML schema to add the "fork" key:
   depends_on: iowarp-runtime
 ```
 
-In each of the IOWARP
+Let's add a new function named fork. Usage:
+```bash
+wrpgit fork
+```
+
+This function will use the github command line to fork a repository from the iowarp URL to a personal account. Anything with fork False will be skipped.
+
+## wrpgit init
+Remove config as a parameter to each function. Let's assume the config is located in the same directory as the wrpgit file itself. Use pathlib to get this location. In addition, implement an init function for wrpgit. 
+Usage: ``wrpgit init``.
+
+This function will produce a default yaml file for wrpgit cli. The default YAML looks as follows:
+```
+username: iowarp
+core_dev: True
+modules:
+- name: cte-hermes-shm
+  build: True
+  fork: False
+  type: cmake
+  preset: debug
+- name: iowarp-runtime
+  build: True
+  fork: False
+  preset: debug
+  type: cmake
+  preset: debug
+  depends_on: cte-hermes-shm
+- name: content-transfer-engine
+  build: True
+  fork: False
+  type: cmake
+  preset: debug
+  depends_on: iowarp-runtime
+- name: content-assimilation-engine
+  build: True
+  fork: False
+  type: cmake
+  preset: debug
+  depends_on: content-transfer-engine
+- name: ppi-jarvis-cd
+  build: False
+  fork: False
+  type: python
+  depends_on: ppi-jarvis-util
+- name: ppi-jarvis-util
+  build: False
+  fork: False
+  type: python
+- name: iowarp-runtime-util
+  build: False
+  fork: False
+  type: python
+  depends_on: ppi-jarvis-util
+- name: ppi-chi-nettest
+  build: False
+  fork: False
+  type: cmake
+  preset: debug
+```
+
+# Teardown 
+
+Create a new function called teardown. This will delete all scspkg modules:
+Usage: wrpgit teardown
+
+Internally, the function will iterate over each module in the config and then call ``scspkg destroy [module]``.
+
+# Recreate
+
+Create a new function called recreate. This function will call teardown and then setup:
+Usage: wrpgit recreate
