@@ -330,6 +330,33 @@ class WrpGit:
                 except Exception as e:
                     WrpPrinter.print_error(f"Error clearing build directory for {module['name']}: {str(e)}")
 
+    def fork(self):
+        """Fork repositories marked for forking using GitHub CLI"""
+        self.check_clone_marker()
+        
+        for module in self.config['modules']:
+            if not module.get('fork', False):
+                continue
+                
+            pkg_name = module['name']
+            WrpPrinter.print_info(f"Attempting to fork {pkg_name}...")
+            
+            try:
+                # Use GitUrl to construct the repository URL
+                urls = GitUrl('iowarp', pkg_name)
+                # Extract owner/repo from the HTTPS URL
+                repo = urls.url_https.split('github.com/')[1].replace('.git', '')
+                
+                # Use GitHub CLI to fork the repository
+                node = Exec(f"gh repo fork {repo} --clone=false", LocalExecInfo(cwd=str(self.iowarp_dir)))
+                if node.exit_code != 0:
+                    raise Exception(f"GitHub fork failed with exit code {node.exit_code}")
+                    
+                WrpPrinter.print_ok(f"Successfully forked {pkg_name}")
+            except Exception as e:
+                WrpPrinter.print_error(f"Error forking {pkg_name}: {str(e)}")
+                continue
+
 class WrpGitArgParser(ArgParse):
     def define_options(self):
         # Clone command
@@ -416,6 +443,18 @@ class WrpGitArgParser(ArgParse):
             }
         ])
 
+        # Fork command
+        self.add_cmd('fork')
+        self.add_args([
+            {
+                'name': 'config',
+                'msg': 'Path to YAML configuration file',
+                'type': str,
+                'default': None,
+                'pos': True
+            }
+        ])
+
     def clone(self):
         wrpgit = WrpGit(self.kwargs['config'])
         wrpgit.clone()
@@ -443,6 +482,10 @@ class WrpGitArgParser(ArgParse):
     def clear(self):
         wrpgit = WrpGit(self.kwargs['config'])
         wrpgit.clear()
+
+    def fork(self):
+        wrpgit = WrpGit(self.kwargs['config'])
+        wrpgit.fork()
 
 def main():
     args = WrpGitArgParser()
