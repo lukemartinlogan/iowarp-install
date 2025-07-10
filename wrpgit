@@ -351,8 +351,8 @@ class WrpGit:
                 except Exception as e:
                     WrpPrinter.print_error(f"Error installing {module['name']}: {str(e)}")
 
-    def clear(self):
-        """Clear all build directories"""
+    def clean(self):
+        """Clean all build directories"""
         self.check_clone_marker()
         self.check_config()
         
@@ -364,11 +364,11 @@ class WrpGit:
             build_dir = repo_dir / 'build'
             if build_dir.exists():
                 try:
-                    WrpPrinter.print_info(f"Clearing build directory for {module['name']}...")
+                    WrpPrinter.print_info(f"Cleaning build directory for {module['name']}...")
                     shutil.rmtree(build_dir)
-                    WrpPrinter.print_ok(f"Successfully cleared build directory for {module['name']}")
+                    WrpPrinter.print_ok(f"Successfully cleaned build directory for {module['name']}")
                 except Exception as e:
-                    WrpPrinter.print_error(f"Error clearing build directory for {module['name']}: {str(e)}")
+                    WrpPrinter.print_error(f"Error cleaning build directory for {module['name']}: {str(e)}")
 
     def fork(self):
         """Fork repositories marked for forking using GitHub CLI"""
@@ -432,8 +432,8 @@ class WrpGitArgParser(ArgParse):
         self.add_cmd('install')
         self.add_args([])
 
-        # Clear command
-        self.add_cmd('clear')
+        # Clean command
+        self.add_cmd('clean')
         self.add_args([])
 
         # Fork command
@@ -468,9 +468,9 @@ class WrpGitArgParser(ArgParse):
         wrpgit = WrpGit()
         wrpgit.install()
 
-    def clear(self):
+    def clean(self):
         wrpgit = WrpGit()
-        wrpgit.clear()
+        wrpgit.clean()
 
     def fork(self):
         wrpgit = WrpGit()

@@ -10,8 +10,11 @@ class IowarpBase(Package):
     """This is a backport of the standard library typing module to Python
     versions older than 3.6."""
 
-    homepage = "" 
+    homepage = "grc.iit.edu/docs/jarvis/jarvis-util/index"
+    git      = "https://github.com/iowarp/ppi-jarvis-util.git"
+
+    version('main', branch='main', preferred=True)
     phases = []
 
     depends_on('cmake@3.25:')
-    
+    depends_on('gh')
