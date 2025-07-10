@@ -37,8 +37,8 @@ class GitUrl:
         self.url_ssh = f"git@github.com:{username}/{package_name}.git"
 
 class WrpGit:
-    def __init__(self, script_dir: Path):
-        self.script_dir = script_dir
+    def __init__(self):
+        self.script_dir = Path(__file__).parent
         self.iowarp_dir = self.check_iowarp_env()
         self.config_path = self.script_dir / 'wrpgit.yaml'
         self.default_config_path = self.script_dir / 'wrpgit-default.yaml'
@@ -344,6 +344,7 @@ class WrpGit:
     def fork(self):
         """Fork repositories marked for forking using GitHub CLI"""
         self.check_clone_marker()
+        self.check_config()
         
         for module in self.config['modules']:
             if not module.get('fork', False):
@@ -411,39 +412,39 @@ class WrpGitArgParser(ArgParse):
         self.add_args([])
 
     def init(self):
-        wrpgit = WrpGit(self.script_dir)
+        wrpgit = WrpGit()
         wrpgit.init()
 
     def clone(self):
-        wrpgit = WrpGit(self.script_dir)
+        wrpgit = WrpGit()
         wrpgit.clone()
 
     def pull(self):
-        wrpgit = WrpGit(self.script_dir)
+        wrpgit = WrpGit()
         wrpgit.pull()
 
     def setup(self):
-        wrpgit = WrpGit(self.script_dir)
+        wrpgit = WrpGit()
         wrpgit.setup()
 
     def env(self):
-        wrpgit = WrpGit(self.script_dir)
+        wrpgit = WrpGit()
         wrpgit.env()
 
     def build(self):
-        wrpgit = WrpGit(self.script_dir)
+        wrpgit = WrpGit()
         wrpgit.build()
 
     def install(self):
-        wrpgit = WrpGit(self.script_dir)
+        wrpgit = WrpGit()
         wrpgit.install()
 
     def clear(self):
-        wrpgit = WrpGit(self.script_dir)
+        wrpgit = WrpGit()
         wrpgit.clear()
 
     def fork(self):
-        wrpgit = WrpGit(self.script_dir)
+        wrpgit = WrpGit()
         wrpgit.fork()
 
 def main():
