@@ -20,7 +20,7 @@ modules:
   build: True
   type: cmake
   preset: debug
-  depends_on: content-assimilation-engine
+  depends_on: content-transfer-engine
 - name: ppi-jarvis-cd
   build: False
   type: python

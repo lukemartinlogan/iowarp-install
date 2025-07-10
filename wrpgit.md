@@ -115,3 +115,15 @@ In each of the IOWARP directories containing a CMakeLists.txt, run the cmake com
 In each of the IOWARP directories containing a CMakeLists.txt, delete the directory named "build".
 
 
+## wrpgit fork
+Extend the YAML schema to add the "fork" key:
+```yaml
+- name: content-transfer-engine
+  fork: True
+  build: True
+  type: cmake
+  preset: debug
+  depends_on: iowarp-runtime
+```
+
+In each of the IOWARP
