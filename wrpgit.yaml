@@ -1,0 +1,38 @@
+username: iowarp
+core_dev: True
+modules:
+- name: cte-hermes-shm
+  build: True
+  type: cmake
+  preset: debug
+- name: iowarp-runtime
+  build: True
+  preset: debug
+  type: cmake
+  preset: debug
+  depends_on: cte-hermes-shm
+- name: content-transfer-engine
+  build: True
+  type: cmake
+  preset: debug
+  depends_on: iowarp-runtime
+- name: content-assimilation-engine
+  build: True
+  type: cmake
+  preset: debug
+  depends_on: content-assimilation-engine
+- name: ppi-jarvis-cd
+  build: False
+  type: python
+  depends_on: ppi-jarvis-util
+- name: ppi-jarvis-util
+  build: False
+  type: python
+- name: iowarp-runtime-util
+  build: False
+  type: python
+  depends_on: ppi-jarvis-util
+- name: ppi-chi-nettest
+  build: False
+  type: cmake
+  preset: debug
