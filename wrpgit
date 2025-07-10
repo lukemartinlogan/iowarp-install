@@ -138,6 +138,10 @@ class WrpGit:
                 try:
                     git.Repo.clone_from(url, target_dir)
                     WrpPrinter.print_ok(f"Successfully cloned {pkg_name} from {self.config['username']}")
+                    
+                    # Add iowarp as a remote for forked repositories
+                    WrpPrinter.print_info(f"Adding iowarp remote for {pkg_name}...")
+                    self.add_remote(target_dir, 'iowarp', 'iowarp')
                 except git.exc.GitCommandError as e:
                     WrpPrinter.print_error(f"Failed to clone {pkg_name} from {self.config['username']}: {str(e)}")
                     sys.exit(1)
@@ -165,16 +169,10 @@ class WrpGit:
                 WrpPrinter.print_warn(f"Remote {alias} already exists in {repo_dir.name}, skipping...")
                 return
                 
-            if username == 'iowarp' and repo_dir.name == 'scspkg':
-                username = 'grc-iit'
-            
-            # Use protocol from config
-            if self.config.get('protocol', 'https') not in ['https', 'ssh']:
-                WrpPrinter.print_warn(f"Invalid protocol {self.config.get('protocol')}, defaulting to https")
-                self.config['protocol'] = 'https'
-            
+            # Use GitUrl to generate the URL
             urls = GitUrl(username, repo_dir.name)
             url = urls.get_url(self.config['protocol'])
+            
             repo.create_remote(alias, url)
             WrpPrinter.print_ok(f"Added remote {alias} ({url}) to {repo_dir.name}")
         except git.exc.InvalidGitRepositoryError:
