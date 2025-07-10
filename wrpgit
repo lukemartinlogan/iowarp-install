@@ -82,6 +82,16 @@ class WrpGit:
 
     def init(self):
         """Initialize wrpgit configuration"""
+        # Create IOWARP directory if it doesn't exist
+        WrpPrinter.print_info(f"Creating directory {self.iowarp_dir}")
+        self.iowarp_dir.mkdir(parents=True, exist_ok=True)
+        
+         # Create .wrpgit marker
+        marker = self.iowarp_dir / '.wrpgit'
+        if not marker.exists():
+            WrpPrinter.print_info("Creating .wrpgit marker")
+            marker.touch()
+            
         if self.config_path.exists():
             WrpPrinter.print_warn(f"Configuration file {self.config_path} already exists, skipping...")
             return
@@ -91,11 +101,12 @@ class WrpGit:
             sys.exit(1)
 
         try:
+            # Copy default config
             WrpPrinter.print_info(f"Creating configuration file {self.config_path}")
             shutil.copy2(self.default_config_path, self.config_path)
-            WrpPrinter.print_ok("Successfully created configuration file")
+            WrpPrinter.print_ok("Successfully initialized wrpgit")
         except Exception as e:
-            WrpPrinter.print_error(f"Error creating configuration file: {str(e)}")
+            WrpPrinter.print_error(f"Error initializing wrpgit: {str(e)}")
             sys.exit(1)
 
     def save_config(self):
@@ -108,7 +119,6 @@ class WrpGit:
         self.check_config()
         WrpPrinter.print_info(f"Creating directory {self.iowarp_dir}")
         self.iowarp_dir.mkdir(parents=True, exist_ok=True)
-        (self.iowarp_dir / '.wrpgit').touch()
 
         # Save config if it doesn't exist
         if not self.config_path.exists():
