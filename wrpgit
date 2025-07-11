@@ -415,29 +415,6 @@ class WrpGit:
                     WrpPrinter.print_error(f"Error building {module['name']}: {str(e)}")
                     sys.exit(1)
 
-    def install(self):
-        """Install all repositories"""
-        self.check_clone_marker()
-        self.check_config()
-        
-        for module in self.config['modules']:
-            if module['type'] != 'cmake':
-                continue
-
-            repo_dir = self.iowarp_dir / module['name']
-            build_dir = repo_dir / 'build'
-            if build_dir.exists():
-                WrpPrinter.print_info(f"Installing {module['name']}...")
-                cmd = ['cmake', '--install', '.']
-                if module['preset']:
-                    cmd.extend(['--preset', module['preset']])
-                
-                try:
-                    Exec(' '.join(cmd), LocalExecInfo(cwd=str(build_dir)))
-                    WrpPrinter.print_ok(f"Successfully installed {module['name']}")
-                except Exception as e:
-                    WrpPrinter.print_error(f"Error installing {module['name']}: {str(e)}")
-
     def clean(self):
         """Clean all build directories"""
         self.check_clone_marker()
@@ -554,11 +531,14 @@ class WrpGitArgParser(ArgParse):
         self.add_cmd('fork')
         self.add_args([])
 
-        # New commands
         self.add_cmd('teardown')
         self.add_args([])
 
         self.add_cmd('recreate')
+        self.add_args([])
+
+        # Add back build command
+        self.add_cmd('build')
         self.add_args([])
 
     def init(self):
@@ -588,6 +568,10 @@ class WrpGitArgParser(ArgParse):
     def recreate(self):
         wrpgit = WrpGit()
         wrpgit.recreate()
+
+    def build(self):
+        wrpgit = WrpGit()
+        wrpgit.build()
 
 def main():
     args = WrpGitArgParser()
