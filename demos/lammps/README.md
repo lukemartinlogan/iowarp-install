@@ -2,7 +2,7 @@
 
 ## IOWARP
 ```
-spack install iowarp +mpiio +vfd
+spack install iowarp +mpiio +vfd +python
 ```
 
 ## IOWARP-VIZ
