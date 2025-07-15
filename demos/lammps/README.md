@@ -84,3 +84,20 @@ cd ${IOWARP}/iowarp-install/demos/lammps
 jarvis ppl load yaml lammps.yaml
 jarvis ppl run
 ```
+
+# SSH Config notes
+```
+Host ares
+  HostName ares.cs.iit.edu
+  User USER 
+Host ares-comp
+    HostName ares-comp-NODE
+    User USER
+    ProxyJump ares
+```
+
+```
+ssh -L 9001:localhost:6001 ares-comp
+```
+
+You can now view the iowarp vizualizer [here](http://localhost:9001)
