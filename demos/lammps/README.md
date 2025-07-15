@@ -97,7 +97,7 @@ Host ares-comp
 ```
 
 ```
-ssh -L 9001:localhost:6001 ares-comp
+ssh -L 9001:localhost:9001 ares-comp
 ```
 
 You can now view the iowarp vizualizer [here](http://localhost:9001)

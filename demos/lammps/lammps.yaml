@@ -14,7 +14,7 @@ pkgs:
     pkg_name: hermes_run
   - pkg_type: hermes_viz
     pkg_name: hermes_viz
-    port: 6001
+    port: 9001
     refresh: .07
     sleep: 3
   - pkg_type: lammps
