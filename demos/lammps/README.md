@@ -66,8 +66,8 @@ spack install lammps^adios2@2.9.0^mpi
 
 ```
 spack load iowarp lammps
-module load adios2
+module load adios2 coeus
 jarvis env build iowarp
-jarvis ppl load yaml iowarp-install/lammps.yaml
+jarvis ppl load yaml ${IOWARP}/iowarp-install/demos/lammps/lammps.yaml
 jarvis ppl run
 ```
