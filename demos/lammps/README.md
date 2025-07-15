@@ -5,6 +5,18 @@
 spack install iowarp +mpiio +vfd
 ```
 
+## IOWARP-VIZ
+```
+export IOWARP=${HOME}/iowarp
+mkdir -p iowarp
+cd $IOWARP
+git clone https://github.com/iowarp/iowarp-viz.git
+
+spack load iowarp
+cd ${IOWARP}/iowarp-viz
+pip install -e .
+```
+
 ## ADIOS2
 
 ```

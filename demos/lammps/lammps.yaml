@@ -12,6 +12,11 @@ pkgs:
     rdata_shm: 24g
   - pkg_type: hermes_run
     pkg_name: hermes_run
+  - pkg_type: hermes_viz
+    pkg_name: hermes_viz
+    port: 6001
+    refresh: .07
+    sleep: 3
   - pkg_type: lammps
     pkg_name: lammps
     script_location: 2D-lennard-jones-fluid
