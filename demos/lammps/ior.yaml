@@ -12,6 +12,7 @@ pkgs:
     rdata_shm: 24g
   - pkg_type: hermes_run
     pkg_name: hermes_run
+    ram: 4g
     include: ['/home/llogan/test_ior/*']
   - pkg_type: hermes_viz
     pkg_name: hermes_viz
@@ -30,8 +31,8 @@ pkgs:
     api: mpiio
     out: /home/llogan/test_ior/ior.bin  # Output directory
     xfer: 1m
-    block: 1g
+    block: 512m
     do_dbg: false
     dbg_port: 4001
-    nprocs: 1  # Total number of processes
-    ppn: 16  # Process per node
+    nprocs: 32  # Total number of processes
+    ppn: 32  # Process per node
