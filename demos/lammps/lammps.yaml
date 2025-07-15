@@ -23,3 +23,6 @@ pkgs:
     engine: hermes
     do_dbg: false
     dbg_port: 4001
+    nprocs: 32
+    ppn: 32
+    
