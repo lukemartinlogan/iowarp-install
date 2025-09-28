@@ -36,8 +36,7 @@ class IowarpRuntime(CMakePackage):
     depends_on('cte-hermes-shm+python')
     depends_on('cte-hermes-shm -nocompile', when='~nocompile')
     depends_on('cte-hermes-shm +nocompile', when='+nocompile')
-    depends_on('py-ppi-jarvis-cd', when='+jarvis', type=('build'))
-    depends_on('py-iowarp-runtime-util', type=('build'))
+    depends_on('py-ppi-jarvis-cd', when='+jarvis', type=('build')) 
     depends_on('mpi')
     depends_on('iowarp-base')
 
