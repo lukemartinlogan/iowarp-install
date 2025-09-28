@@ -8,6 +8,8 @@ class IowarpRuntime(CMakePackage):
             branch='main', submodules=True, preferred=True)
     version('dev',
             branch='dev', submodules=True)
+    version('ai',
+            branch='44-ai-prompt', submodules=True)
 
     # Common across cte-hermes-shm and hermes
     variant('debug', default=False, description='Build shared libraries')

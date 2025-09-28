@@ -20,6 +20,7 @@ class Iowarp(Package):
             git="https://github.com/lukemartinlogan/hermes.git")
 
     # Common across cte-hermes-shm and hermes
+    variant("ai", default=True, description="Use AI branch for runtime + CTE")
     variant("posix", default=True, description="Enable POSIX adapter")
     variant("mpiio", default=True, description="Enable MPI I/O adapter")
     variant("stdio", default=True, description="Enable STDIO adapter")
@@ -45,6 +46,7 @@ class Iowarp(Package):
     depends_on("iowarp-cte@main", when="@main")
     depends_on("iowarp-cte@priv", when="@priv")
     depends_on("iowarp-cte@dev", when="@dev")
+    depends_on("iowarp-cte@ai", when="+ai")
     
     depends_on('iowarp-cte+debug', when='+debug')
     depends_on('iowarp-cte+ares', when='+ares')
@@ -56,6 +58,8 @@ class Iowarp(Package):
     depends_on('iowarp-cte+mpiio', when='+mpiio')
     depends_on('iowarp-cte+stdio', when='+stdio')
     depends_on('iowarp-cte+vfd', when='+vfd')
+
+    depends_on('iowarp-runtime@ai', when='+ai')
 
     depends_on('py-ppi-jarvis-cd', when='+ppi', type=('build', 'run'))
     depends_on('py-ppi-scspkg', when='+ppi', type=('build', 'run'))
