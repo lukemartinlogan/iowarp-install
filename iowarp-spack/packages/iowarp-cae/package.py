@@ -35,18 +35,7 @@ class IowarpCae(CMakePackage):
     variant("mpich", default=False, description="Build with MPICH")
     variant("openmpi", default=False, description="Build with OpenMPI")
 
-    depends_on("iowarp-runtime")
-    depends_on("iowarp-runtime -nocompile", when="~nocompile")
-    depends_on("iowarp-runtime +nocompile", when="+nocompile")
-    depends_on("iowarp-runtime@main", when="@main")
-    depends_on("iowarp-runtime@priv", when="@priv")
-    depends_on("iowarp-runtime@dev", when="@dev")
-
-    depends_on('cte-hermes-shm+elf')
-    depends_on('cte-hermes-shm+debug', when='+debug')
-    depends_on('cte-hermes-shm+mpiio')
-    depends_on('cte-hermes-shm+vfd', when='+vfd')
-    depends_on('py-ppi-jarvis-cd', type=('build'))
+    depends_on("content-transfer-engine") 
     depends_on('iowarp-base')
 
     # GPU variants
